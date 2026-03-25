@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Title — FormFactor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span></span>
+      FormFactor
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="modules.html">Modules</a></li>
+      <li><a href="cases.html" class="active">Case Studies</a></li>   <!-- change active per page -->
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="modules.html" class="nav-cta">Start Learning</a>
+  </nav>
+
+  <div class="container" style="padding-top: 64px;">
+    <!-- Paste the entire content that was inside <div id="page-cases">, <div id="page-resources">, or <div id="page-about"> -->
+        <div class="container">
+ 
+    <div class="about-grid">
+      <!-- Left: Story -->
+      <div class="about-left">
+        <div class="section-label">Our Mission</div>
+        <h2>Built by engineers, for engineers who want to go further.</h2>
+        <p>There's a frustrating gap in how CAD is taught. Tutorials teach you the software. Classes teach you theory. But nobody shows you what happens in between — <strong>the decisions, the failures, the constraints</strong> that define real engineering work.</p>
+        <p>FormFactor exists to fill that gap. It's a structured learning platform built around the premise that intermediate engineers learn best from <strong>real-world examples, documented honestly</strong> — including the parts that didn't work.</p>
+        <p>Every module connects to a case study. Every case study references the resources that powered it. The platform is built to work as a connected learning journey, not a pile of isolated lessons.</p>
+        <p style="margin-top:32px;">
+          <button class="btn-primary" onclick="goTo('modules')">Start with Module 01 →</button>
+        </p>
+      </div>
+ 
+      <!-- Right: Values + Manifesto -->
+      <div class="about-right">
+        <div class="manifesto">
+          <p>Engineering isn't just knowing the tools. It's knowing which question to ask when something doesn't work — and having enough context to answer it.</p>
+        </div>
+ 
+        <div class="value-list">
+          <div class="value-item">
+            <div class="value-icon">⚙</div>
+            <div class="value-content">
+              <div class="value-title">Context Over Commands</div>
+              <p class="value-desc">We teach the why behind every design decision, not just the how-to.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🔁</div>
+            <div class="value-content">
+              <div class="value-title">Failure is Part of the Process</div>
+              <p class="value-desc">Every case study includes what broke, why, and what changed — because that's where the learning actually happens.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">📐</div>
+            <div class="value-content">
+              <div class="value-title">Structured, but Not Rigid</div>
+              <p class="value-desc">Modules build on each other, but you can jump to what you need. Your learning path should fit your project.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <hr class="about-divider" />
+ 
+    <!-- Roadmap phases -->
+    <div class="phases-section">
+      <div class="section-label">Roadmap</div>
+      <div class="phases-title">Where this is headed</div>
+      <div class="phases-list">
+        <div class="phase-item">
+          <div class="phase-num">Phase 01</div>
+          <div class="phase-name">Foundation</div>
+          <p class="phase-desc">Core modules, 1 case study, clean architecture</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 02</div>
+          <div class="phase-name">Content</div>
+          <p class="phase-desc">Full module library + 3 more case studies</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 03</div>
+          <div class="phase-name">Visuals</div>
+          <p class="phase-desc">CAD screenshots, diagrams, video walkthroughs</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 04</div>
+          <div class="phase-name">Launch</div>
+          <p class="phase-desc">GitHub Pages deploy, mentor & peer feedback</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">Phase 05</div>
+          <div class="phase-name">Community</div>
+          <p class="phase-desc">Q&A, mentorship, downloadable files, industry interviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

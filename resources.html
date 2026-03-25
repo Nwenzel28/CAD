@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Title — FormFactor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span></span>
+      FormFactor
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="modules.html">Modules</a></li>
+      <li><a href="cases.html" class="active">Case Studies</a></li>   <!-- change active per page -->
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="modules.html" class="nav-cta">Start Learning</a>
+  </nav>
+
+  <div class="container" style="padding-top: 64px;">
+    <!-- Paste the entire content that was inside <div id="page-cases">, <div id="page-resources">, or <div id="page-about"> -->
+    <div class="container">
+    <div class="page-hero">
+      <div class="section-label">Tool Library</div>
+      <h2>Resources</h2>
+      <p>A curated and categorized collection of tools, guides, references, and tutorials — vetted so you don't have to spend hours searching.</p>
+    </div>
+ 
+    <div class="resources-layout">
+      <!-- Sidebar filters -->
+      <aside class="res-sidebar">
+        <div class="res-sidebar-title">Filter by Category</div>
+        <ul class="res-filter-list">
+          <li class="active">All Resources <span class="res-count">18</span></li>
+          <li>CAD & Modeling <span class="res-count">6</span></li>
+          <li>Manufacturing <span class="res-count">4</span></li>
+          <li>Simulation & FEA <span class="res-count">3</span></li>
+          <li>Robotics <span class="res-count">3</span></li>
+          <li>Standards & Reference <span class="res-count">2</span></li>
+        </ul>
+      </aside>
+ 
+      <!-- Resource cards -->
+      <div class="res-cards">
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type tool">Tool</span>
+          </div>
+          <div class="res-card-title">Onshape</div>
+          <p class="res-card-desc">Browser-based parametric CAD with built-in version control. Excellent for collaborative design and learning modern workflow habits.</p>
+          <div class="res-card-footer">
+            <span>CAD & Modeling</span>
+            <span>Free tier available</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type guide">Guide</span>
+          </div>
+          <div class="res-card-title">GD&T Basics by Engineers Edge</div>
+          <p class="res-card-desc">Clear, structured breakdown of Geometric Dimensioning and Tolerancing from ISO and ASME standards. Great reference for DFM module.</p>
+          <div class="res-card-footer">
+            <span>Standards & Reference</span>
+            <span>Free</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type tool">Tool</span>
+          </div>
+          <div class="res-card-title">Fusion 360 (Autodesk)</div>
+          <p class="res-card-desc">Full-featured CAD/CAM/FEA environment with a generous education license. Industry-standard tool with strong manufacturing integration.</p>
+          <div class="res-card-footer">
+            <span>CAD & Modeling</span>
+            <span>Free for students</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type ref">Reference</span>
+          </div>
+          <div class="res-card-title">MIT OpenCourseWare — Product Design</div>
+          <p class="res-card-desc">MIT's open course materials on product engineering and design process. Excellent depth on design thinking and systematic iteration methods.</p>
+          <div class="res-card-footer">
+            <span>Manufacturing</span>
+            <span>Free</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type video">Video</span>
+          </div>
+          <div class="res-card-title">Practical FEA — SimScale Series</div>
+          <p class="res-card-desc">Step-by-step FEA walkthrough for mechanical parts. Covers meshing, boundary conditions, and result interpretation — directly applicable to Module 04.</p>
+          <div class="res-card-footer">
+            <span>Simulation & FEA</span>
+            <span>Free series</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type guide">Guide</span>
+          </div>
+          <div class="res-card-title">Sheet Metal DFM Guidelines</div>
+          <p class="res-card-desc">Manufacturing constraints and design rules for laser-cut and bent sheet metal parts. Includes bend radii, minimum hole sizes, and tab-and-slot techniques.</p>
+          <div class="res-card-footer">
+            <span>Manufacturing</span>
+            <span>Free PDF</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type tool">Tool</span>
+          </div>
+          <div class="res-card-title">KiCAD (PCB Collaboration)</div>
+          <p class="res-card-desc">Open-source electronics design tool. Relevant for Module 06 — understanding PCB form factors and mounting requirements when designing integrated systems.</p>
+          <div class="res-card-footer">
+            <span>Robotics</span>
+            <span>Free / Open-source</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type ref">Reference</span>
+          </div>
+          <div class="res-card-title">Machinery's Handbook (Abridged)</div>
+          <p class="res-card-desc">The standard mechanical engineering reference. Fastener tables, material properties, fits and tolerances. Every engineering student should know this exists.</p>
+          <div class="res-card-footer">
+            <span>Standards & Reference</span>
+            <span>Paid / Library access</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type guide">Guide</span>
+          </div>
+          <div class="res-card-title">FRC Design Principles — WPILib</div>
+          <p class="res-card-desc">WPILib's documented design principles for competitive robotics mechanisms. Excellent real-world framework for mechanism design and constraint-driven decisions.</p>
+          <div class="res-card-footer">
+            <span>Robotics</span>
+            <span>Free / Open source</span>
+          </div>
+        </div>
+ 
+        <div class="res-card">
+          <div class="res-card-top">
+            <span class="res-type video">Video</span>
+          </div>
+          <div class="res-card-title">Solidworks Assemblies Deep Dive</div>
+          <p class="res-card-desc">Full walkthrough of top-down assembly design in SolidWorks including in-context editing, external references, and layout sketches. Pairs with Module 03.</p>
+          <div class="res-card-footer">
+            <span>CAD & Modeling</span>
+            <span>Free on YouTube</span>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

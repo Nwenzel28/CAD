@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modules — FormFactor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span></span>
+      FormFactor
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="modules.html" class="active">Modules</a></li>
+      <li><a href="cases.html">Case Studies</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="modules.html" class="nav-cta">Start Learning</a>
+  </nav>
+
+  <div class="container" style="padding-top: 64px;">
+    <div class="page-hero">
+      <div class="section-label">Curriculum</div>
+      <h2>Learning Modules</h2>
+      <p>Structured lessons designed for intermediate CAD users. Each module builds on the last — start at Module 01 or jump to whatever's most relevant to your project.</p>
+    </div>
+
+    <div class="modules-grid">
+      <!-- All 6 module cards (same as original) -->
+      <!-- Module 01 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 01</span>
+          <span class="module-difficulty">Intermediate</span>
+        </div>
+        <div class="module-card-title">Design for Manufacturing</div>
+        <p class="module-card-desc">Learn to design parts that can actually be built. Understand tolerancing, feature minimization, and how your software decisions translate to machine time and cost.</p>
+        <div class="module-topics">
+          <span class="topic-tag">GD&T Basics</span>
+          <span class="topic-tag">Tolerancing</span>
+          <span class="topic-tag">DFM Principles</span>
+          <span class="topic-tag">Material Selection</span>
+          <span class="topic-tag">Draft Angles</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~3 hrs</span>
+            <span>6 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+ 
+      <!-- Module 02 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 02</span>
+          <span class="module-difficulty">Intermediate</span>
+        </div>
+        <div class="module-card-title">Iteration Workflows</div>
+        <p class="module-card-desc">Design is never one-and-done. Build systematic habits for versioning, documenting decisions, and using feedback cycles to improve designs quickly and intentionally.</p>
+        <div class="module-topics">
+          <span class="topic-tag">Version Control</span>
+          <span class="topic-tag">Changelog Practice</span>
+          <span class="topic-tag">Rapid Prototyping</span>
+          <span class="topic-tag">Feedback Loops</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~2.5 hrs</span>
+            <span>5 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+ 
+      <!-- Module 03 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 03</span>
+          <span class="module-difficulty">Intermediate</span>
+        </div>
+        <div class="module-card-title">Assembly Design</div>
+        <p class="module-card-desc">Go beyond individual parts. Learn top-down design strategy, how to manage complex assemblies, and how design choices in one part cascade through an entire system.</p>
+        <div class="module-topics">
+          <span class="topic-tag">Mates & Constraints</span>
+          <span class="topic-tag">Top-Down Design</span>
+          <span class="topic-tag">Assembly BOM</span>
+          <span class="topic-tag">Sub-Assemblies</span>
+          <span class="topic-tag">Clearance Analysis</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~4 hrs</span>
+            <span>7 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+ 
+      <!-- Module 04 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 04</span>
+          <span class="module-difficulty">Advanced</span>
+        </div>
+        <div class="module-card-title">Structural Analysis Basics</div>
+        <p class="module-card-desc">Get a working understanding of FEA tools within your CAD environment. Learn to identify load paths, set up basic simulations, and validate designs before building.</p>
+        <div class="module-topics">
+          <span class="topic-tag">FEA Setup</span>
+          <span class="topic-tag">Load Path Analysis</span>
+          <span class="topic-tag">Stress Concentrations</span>
+          <span class="topic-tag">Factor of Safety</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~3.5 hrs</span>
+            <span>6 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+ 
+      <!-- Module 05 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 05</span>
+          <span class="module-difficulty">Intermediate</span>
+        </div>
+        <div class="module-card-title">Fasteners & Joining</div>
+        <p class="module-card-desc">The details that hold everything together — literally. Deep dive into fastener selection, thread engagement, press fits, adhesives, and when each joining method is appropriate.</p>
+        <div class="module-topics">
+          <span class="topic-tag">Fastener Selection</span>
+          <span class="topic-tag">Thread Engagement</span>
+          <span class="topic-tag">Press Fits</span>
+          <span class="topic-tag">Weld Design</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~2 hrs</span>
+            <span>4 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+ 
+      <!-- Module 06 -->
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-badge">Module 06</span>
+          <span class="module-difficulty">Advanced</span>
+        </div>
+        <div class="module-card-title">System-Level Thinking</div>
+        <p class="module-card-desc">Shift from part-level to system-level design. Learn how mechanical, electrical, and software constraints interact, and how to design for integration from the start.</p>
+        <div class="module-topics">
+          <span class="topic-tag">Interface Control</span>
+          <span class="topic-tag">Cable Routing</span>
+          <span class="topic-tag">Mechatronics Basics</span>
+          <span class="topic-tag">Design Reviews</span>
+        </div>
+        <div class="module-footer">
+          <div class="module-meta">
+            <span>~4.5 hrs</span>
+            <span>8 sections</span>
+          </div>
+          <button class="start-btn">Start Module →</button>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
