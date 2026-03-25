@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 01 — Orangineering</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       MODULE PAGE STYLES
+       Shared by all module pages — lives here for now,
+       can be extracted to module-styles.css later.
+    ═══════════════════════════════════════════════════ */
+
+    /* ── MODULE HEADER ────────────────────────────────── */
+    .mod-header {
+      background: var(--bg2);
+      border-bottom: 1.5px solid var(--border);
+      padding: 52px 0 44px;
+      margin-bottom: 0;
+    }
+
+    .mod-header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+    }
+
+    .mod-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mod-eyebrow a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .mod-eyebrow a:hover { color: var(--accent); }
+    .mod-eyebrow-sep { color: var(--dim); }
+
+    .mod-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .mod-header-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 20px;
+    }
+
+    .mod-meta-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .mod-meta-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mod-meta-chip.difficulty-intermediate { border-color: var(--accent-bd); color: var(--accent); background: var(--accent-bg); }
+    .mod-meta-chip.difficulty-advanced      { border-color: rgba(184,50,50,.25); color: var(--red); background: rgba(184,50,50,.06); }
+    .mod-meta-chip.difficulty-beginner      { border-color: rgba(45,122,79,.25); color: var(--green); background: rgba(45,122,79,.07); }
+
+    .mod-topics-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    /* Header right — nav buttons */
+    .mod-header-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .mod-nav-btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+
+    .mod-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .mod-nav-btn.primary {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(232,98,26,.25);
+    }
+
+    .mod-nav-btn.primary:hover { background: #c94e0e; border-color: #c94e0e; color: #fff; }
+
+    /* ── LAYOUT: sidebar + content ────────────────────── */
+    .module-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      align-items: start;
+      min-height: 80vh;
+    }
+
+    /* ── SIDEBAR ──────────────────────────────────────── */
+    .module-sidebar {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      padding: 36px 0 36px 40px;
+      border-right: 1.5px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .sidebar-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+      padding-right: 24px;
+    }
+
+    #section-nav { list-style: none; }
+
+    .sec-nav-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 24px 10px 0;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -2px;
+      transition: border-color .2s;
+      cursor: pointer;
+    }
+
+    .sec-nav-link:hover .sec-nav-title { color: var(--accent); }
+
+    .sec-nav-link.active {
+      border-left-color: var(--accent);
+    }
+
+    .sec-nav-link.active .sec-nav-num   { color: var(--accent); }
+    .sec-nav-link.active .sec-nav-title { color: var(--text); font-weight: 600; }
+
+    .sec-nav-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      min-width: 20px;
+      padding-top: 1px;
+      transition: color .2s;
+    }
+
+    .sec-nav-title {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+      transition: color .2s;
+    }
+
+    /* ── MAIN CONTENT ─────────────────────────────────── */
+    .module-content {
+      padding: 48px 56px 80px;
+      max-width: 780px;
+    }
+
+    /* Section */
+    .module-section {
+      margin-bottom: 72px;
+      scroll-margin-top: calc(var(--nav-h) + 24px);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .section-title-text {
+      font-family: var(--font-head);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── BLOCK STYLES ─────────────────────────────────── */
+
+    /* Text block */
+    .block--text p {
+      font-size: 15.5px;
+      color: var(--text2);
+      line-height: 1.78;
+      margin-bottom: 16px;
+    }
+
+    .block--text p:last-child { margin-bottom: 0; }
+
+    .block--text strong { color: var(--text); font-weight: 600; }
+
+    /* Callout block */
+    .block--callout {
+      display: flex;
+      gap: 14px;
+      padding: 18px 22px;
+      border-radius: 8px;
+      margin: 24px 0;
+      border: 1.5px solid;
+    }
+
+    .callout--tip     { background: rgba(45,122,79,.07);  border-color: rgba(45,122,79,.2); }
+    .callout--warning { background: rgba(184,50,50,.06);  border-color: rgba(184,50,50,.2); }
+    .callout--note    { background: var(--accent-bg);     border-color: var(--accent-bd); }
+    .callout--example { background: rgba(27,95,168,.06);  border-color: rgba(27,95,168,.2); }
+
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    .callout-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .callout--tip     .callout-label { color: var(--green); }
+    .callout--warning .callout-label { color: var(--red); }
+    .callout--note    .callout-label { color: var(--accent); }
+    .callout--example .callout-label { color: var(--blue); }
+
+    .callout-text {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* Block shared title */
+    .block-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      margin-top: 8px;
+    }
+
+    /* Steps block */
+    .block--steps { margin: 24px 0; }
+
+    .steps-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-item:first-child { border-top: 1px solid var(--border); }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--accent);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-heading {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .step-detail {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Key terms block */
+    .block--keyterms { margin: 24px 0; }
+
+    .keyterms-list { display: flex; flex-direction: column; gap: 0; }
+
+    .keyterm-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+
+    .keyterm-row:first-child { border-top: 1px solid var(--border); }
+
+    .keyterm-term {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .keyterm-def {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* Checklist block */
+    .block--checklist { margin: 24px 0; }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .checklist-item--do {
+      background: rgba(45,122,79,.07);
+      border: 1px solid rgba(45,122,79,.18);
+      color: var(--text2);
+    }
+
+    .checklist-item--dont {
+      background: rgba(184,50,50,.06);
+      border: 1px solid rgba(184,50,50,.18);
+      color: var(--text2);
+    }
+
+    .check-icon {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .checklist-item--do   .check-icon { color: var(--green); }
+    .checklist-item--dont .check-icon { color: var(--red); }
+
+    /* Image placeholder block */
+    .block--image { margin: 28px 0; }
+
+    .image-placeholder {
+      background: var(--bg3);
+      border: 1.5px dashed var(--border);
+      border-radius: 8px;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s;
+    }
+
+    .image-placeholder:hover { border-color: var(--accent); }
+
+    .image-placeholder-inner {
+      text-align: center;
+      color: var(--dim);
+      padding: 32px;
+    }
+
+    .image-placeholder-inner svg { color: var(--dim); margin-bottom: 12px; }
+
+    .image-placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .image-placeholder-hint {
+      font-size: 13px;
+      color: var(--dim);
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    .image-caption {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--dim);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Divider block */
+    .block-divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* Spacing between blocks */
+    .block { margin-bottom: 20px; }
+    .block:last-child { margin-bottom: 0; }
+
+    /* ── MODULE NAV FOOTER ────────────────────────────── */
+    .module-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      border-top: 1.5px solid var(--border);
+      margin-top: 24px;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 960px) {
+      .module-layout { grid-template-columns: 1fr; }
+      .module-sidebar {
+        position: static;
+        height: auto;
+        padding: 24px 20px;
+        border-right: none;
+        border-bottom: 1.5px solid var(--border);
+      }
+      .module-content { padding: 32px 20px 60px; }
+      .keyterm-row { grid-template-columns: 1fr; gap: 4px; }
+      .mod-header-inner { flex-direction: column; align-items: flex-start; }
+      .mod-header-nav { align-items: flex-start; flex-direction: row; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="../index.html">
+    <span class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><polygon points="12,3 21,20 3,20"/></svg>
+    </span>
+    <span class="nav-logo-text"><em>Orange</em>ineering</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../modules.html">Modules</a></li>
+    <li><a href="../cases.html">Case Studies</a></li>
+    <li><a href="../resources.html">Resources</a></li>
+    <li><a href="../about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="../modules.html">All Modules</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── MODULE HEADER ──────────────────────────── -->
+  <div class="mod-header">
+    <div class="container">
+      <div class="mod-header-inner">
+        <div class="mod-header-left">
+          <div class="mod-eyebrow">
+            <a href="../modules.html">Modules</a>
+            <span class="mod-eyebrow-sep">/</span>
+            <span id="mod-number">Module 01</span>
+          </div>
+          <h1 id="mod-title">Design for Manufacturing</h1>
+          <p class="mod-header-desc" id="mod-desc"></p>
+          <div class="mod-meta-row">
+            <span class="mod-meta-chip difficulty-intermediate" id="mod-difficulty"></span>
+            <span class="mod-meta-chip" id="mod-duration"></span>
+          </div>
+          <div class="mod-topics-row" id="mod-topics"></div>
+        </div>
+        <div class="mod-header-nav">
+          <a class="mod-nav-btn" href="../modules.html">← All Modules</a>
+          <a class="mod-nav-btn primary" id="next-module-btn" href="02-iteration.html">Next Module →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BODY: SIDEBAR + CONTENT ────────────────── -->
+  <div class="module-layout">
+
+    <aside class="module-sidebar">
+      <div class="sidebar-label">Sections</div>
+      <ul id="section-nav"></ul>
+    </aside>
+
+    <main class="module-content">
+      <!--
+        All content is injected here by module-renderer.js
+        reading from module-01-data.js.
+        Do not add content here directly.
+      -->
+      <div id="module-body"></div>
+
+      <!-- Bottom navigation -->
+      <div class="module-nav-footer">
+        <a class="btn-ghost" href="../modules.html">← Back to Modules</a>
+        <a class="btn-primary" href="02-iteration.html">Next: Iteration Workflows →</a>
+      </div>
+    </main>
+
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script src="module-renderer.js"></script>
+<script src="module-01-data.js"></script>
+<script src="../script.js"></script>
+</body>
+</html>

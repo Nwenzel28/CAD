@@ -35,7 +35,7 @@ const MODULES = [
     duration: "~3 hrs",
     sections: 6,
     status: "available",
-    link: "#"
+    link: "modules/01-dfm.html"
   },
 
   // ── MODULE 02 ────────────────────────────────────────
