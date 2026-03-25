@@ -3,180 +3,485 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormFactor — CAD Engineering Platform</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Orangineering — CAD Engineering Platform</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── HOME-SPECIFIC STYLES ──────────────────────── */
+
+    /* Hero */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 72px;
+      padding: 80px 0;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-eyebrow::before { content: '//'; color: var(--dim); margin-right: 2px; }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.06;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 56px;
+      padding-top: 36px;
+      border-top: 1.5px solid var(--border);
+    }
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    /* Blueprint card */
+    .hero-visual { position: relative; }
+
+    .blueprint-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .blueprint-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,98,26,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,98,26,.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .blueprint-header {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .blueprint-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .module-preview { display: flex; flex-direction: column; gap: 10px; position: relative; }
+
+    .module-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+
+    .module-row:hover {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .module-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      min-width: 24px;
+      font-weight: 500;
+    }
+
+    .module-info { flex: 1; }
+
+    .module-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dim);
+    }
+
+    .module-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .7;
+    }
+
+    .module-dot.locked { background: var(--dim); }
+
+    /* Feature strip */
+    .feature-strip {
+      border-top: 1.5px solid var(--border);
+      border-bottom: 1.5px solid var(--border);
+      padding: 64px 0;
+      margin-bottom: 80px;
+      background: var(--bg2);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 56px;
+    }
+
+    .feature-item { position: relative; padding-left: 22px; }
+
+    .feature-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 4px;
+      width: 3px; height: 22px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .feature-title {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    /* Path section */
+    .path-section { padding: 80px 0; }
+
+    .path-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .path-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .path-steps::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 1.5px;
+      background: var(--border);
+    }
+
+    .path-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .step-dot {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .path-step:hover .step-dot {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      box-shadow: 0 0 0 4px rgba(232,98,26,.1);
+    }
+
+    .step-title {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 56px 0; gap: 48px; }
+      .hero-visual { display: none; }
+      .feature-grid { grid-template-columns: 1fr; gap: 36px; }
+      .path-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .path-steps::before { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <span></span>
-      FormFactor
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="modules.html">Modules</a></li>
-      <li><a href="cases.html">Case Studies</a></li>
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-    <a href="modules.html" class="nav-cta">Start Learning</a>
-  </nav>
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><polygon points="12,3 21,20 3,20"/></svg>
+    </span>
+    <span class="nav-logo-text"><em>Orange</em>ineering</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="modules.html">Modules</a></li>
+    <li><a href="cases.html">Case Studies</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="modules.html">Start Learning</a>
+</nav>
 
-  <!-- HOME PAGE CONTENT -->
-  <div class="container" style="padding-top: 64px;">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="hero-eyebrow">Engineering Education Platform</p>
-        <h1>
-          Bridge the gap between<br/>
-          <em>CAD skills</em> and<br/>
-          real engineering.
-        </h1>
-        <p class="hero-sub">
-          FormFactor is a structured learning platform for intermediate CAD users ready to go
-          beyond the basics — with real-world case studies, design-for-manufacturing workflows,
-          and the engineering context that textbooks skip.
-        </p>
-        <div class="hero-actions">
-          <a href="modules.html" class="btn-primary">Explore Modules →</a>
-          <a href="cases.html" class="btn-ghost">View Case Studies</a>
+<!-- ─── HERO ─────────────────────────────────────── -->
+<div class="page-wrap">
+<div class="container">
+  <section class="hero">
+
+    <div class="hero-copy fade-up">
+      <p class="hero-eyebrow">Engineering Education Platform</p>
+      <h1>
+        Bridge the gap<br/>
+        between <em>CAD skills</em><br/>
+        and real engineering.
+      </h1>
+      <p class="hero-sub">
+        Orangineering is a structured learning platform for intermediate CAD users ready
+        to go beyond the basics — with real-world case studies, design-for-manufacturing
+        workflows, and the engineering context that textbooks skip.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="modules.html">Explore Modules →</a>
+        <a class="btn-ghost"   href="cases.html">View Case Studies</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-num">6</span>
+          <span class="stat-label">Core Modules</span>
         </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num">6</span>
-            <span class="stat-label">Core Modules</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">4</span>
-            <span class="stat-label">Case Studies</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">30+</span>
-            <span class="stat-label">Resources</span>
-          </div>
+        <div>
+          <span class="stat-num">4</span>
+          <span class="stat-label">Case Studies</span>
+        </div>
+        <div>
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Resources</span>
         </div>
       </div>
+    </div>
 
-      <div class="hero-visual">
-        <div class="blueprint-card">
-          <div class="blueprint-header">
-            <span>FORMFACTOR / CURRICULUM v0.1</span>
-            <span>REV A</span>
-          </div>
-          <p class="blueprint-title">// Learning Path Preview</p>
-          <div class="module-preview">
-            <div class="module-row">
-              <span class="module-num">01</span>
-              <div class="module-info">
-                <div class="module-name">Design for Manufacturing</div>
-                <div class="module-tag">Tolerancing · Material selection · DFM principles</div>
-              </div>
-              <span class="module-status"></span>
+    <!-- Blueprint preview card -->
+    <div class="hero-visual fade-up fade-up-delay-2">
+      <div class="blueprint-card">
+        <div class="blueprint-header">
+          <span>ORANGINEERING / CURRICULUM v0.1</span>
+          <span>REV A</span>
+        </div>
+        <p class="blueprint-label">// Learning Path Preview</p>
+        <div class="module-preview">
+          <a class="module-row" href="modules.html">
+            <span class="module-num">01</span>
+            <div class="module-info">
+              <div class="module-name">Design for Manufacturing</div>
+              <div class="module-tag">Tolerancing · Material selection · DFM</div>
             </div>
-            <div class="module-row">
-              <span class="module-num">02</span>
-              <div class="module-info">
-                <div class="module-name">Iteration Workflows</div>
-                <div class="module-tag">Version control · Rapid prototyping · Feedback loops</div>
-              </div>
-              <span class="module-status"></span>
+            <span class="module-dot"></span>
+          </a>
+          <a class="module-row" href="modules.html">
+            <span class="module-num">02</span>
+            <div class="module-info">
+              <div class="module-name">Iteration Workflows</div>
+              <div class="module-tag">Version control · Rapid prototyping</div>
             </div>
-            <div class="module-row">
-              <span class="module-num">03</span>
-              <div class="module-info">
-                <div class="module-name">Assembly Design</div>
-                <div class="module-tag">Mates · Constraints · Top-down design</div>
-              </div>
-              <span class="module-status"></span>
+            <span class="module-dot"></span>
+          </a>
+          <a class="module-row" href="modules.html">
+            <span class="module-num">03</span>
+            <div class="module-info">
+              <div class="module-name">Assembly Design</div>
+              <div class="module-tag">Mates · Top-down design</div>
             </div>
-            <div class="module-row">
-              <span class="module-num">04</span>
-              <div class="module-info">
-                <div class="module-name">Structural Analysis Basics</div>
-                <div class="module-tag">FEA · Load paths · Design validation</div>
-              </div>
-              <span class="module-status locked"></span>
+            <span class="module-dot"></span>
+          </a>
+          <a class="module-row" href="modules.html">
+            <span class="module-num">04</span>
+            <div class="module-info">
+              <div class="module-name">Structural Analysis Basics</div>
+              <div class="module-tag">FEA · Load paths · Validation</div>
             </div>
-          </div>
+            <span class="module-dot locked"></span>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+
+  </section>
+</div><!-- /container -->
+
+<!-- Feature Strip -->
+<section class="feature-strip">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-item fade-up">
+        <div class="feature-title">Real-World Case Studies</div>
+        <p class="feature-desc">See how actual robotics and engineering teams made design decisions — including the failures, constraints, and trade-offs that tutorials never show you.</p>
+      </div>
+      <div class="feature-item fade-up fade-up-delay-1">
+        <div class="feature-title">Structured Learning Path</div>
+        <p class="feature-desc">Move through carefully ordered modules that build on each other — from manufacturing constraints to full system design — with clear goals at every step.</p>
+      </div>
+      <div class="feature-item fade-up fade-up-delay-2">
+        <div class="feature-title">Curated Tool Library</div>
+        <p class="feature-desc">Stop searching. Every tool, guide, reference, and tutorial has been vetted and categorized so you can find what you need and get back to designing.</p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Feature Strip -->
-  <section class="feature-strip">
-    <div class="container">
-      <div class="feature-grid">
-        <div class="feature-item">
-          <div class="feature-title">Real-World Case Studies</div>
-          <p class="feature-desc">See how actual robotics and engineering teams made design decisions — including the failures, constraints, and trade-offs that tutorials never show you.</p>
-        </div>
-        <div class="feature-item">
-          <div class="feature-title">Structured Learning Path</div>
-          <p class="feature-desc">Move through carefully ordered modules that build on each other — from manufacturing constraints to full system design — with clear goals at every step.</p>
-        </div>
-        <div class="feature-item">
-          <div class="feature-title">Curated Tool Library</div>
-          <p class="feature-desc">Stop searching. Every tool, guide, reference, and tutorial has been vetted and categorized so you can find what you need and get back to designing.</p>
-        </div>
+<!-- Learning Path -->
+<div class="container">
+  <section class="path-section">
+    <div class="path-header">
+      <div>
+        <div class="section-label">User Journey</div>
+        <h2 class="section-title">How it all connects</h2>
+      </div>
+    </div>
+    <div class="path-steps">
+      <div class="path-step fade-up">
+        <div class="step-dot">01</div>
+        <div class="step-title">Learn Concepts</div>
+        <p class="step-desc">Work through structured modules on key intermediate CAD and engineering topics.</p>
+      </div>
+      <div class="path-step fade-up fade-up-delay-1">
+        <div class="step-dot">02</div>
+        <div class="step-title">Apply via Cases</div>
+        <p class="step-desc">Connect concepts to real robotics examples with full design breakdowns.</p>
+      </div>
+      <div class="path-step fade-up fade-up-delay-2">
+        <div class="step-dot">03</div>
+        <div class="step-title">Explore Deeper</div>
+        <p class="step-desc">Dive into the tools and references behind each topic in the resource library.</p>
+      </div>
+      <div class="path-step fade-up fade-up-delay-3">
+        <div class="step-dot">→</div>
+        <div class="step-title">Build Better</div>
+        <p class="step-desc">Apply engineering thinking to your own projects with a stronger foundation.</p>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- Learning Path -->
+<!-- Footer -->
+<footer>
   <div class="container">
-    <section class="path-section">
-      <div class="path-header">
-        <div>
-          <div class="section-label">User Journey</div>
-          <h2 class="section-title">How it all connects</h2>
-        </div>
-      </div>
-      <div class="path-steps">
-        <div class="path-step">
-          <div class="step-dot">01</div>
-          <div class="step-title">Learn Concepts</div>
-          <p class="step-desc">Work through structured modules covering key intermediate CAD and engineering topics.</p>
-        </div>
-        <div class="path-step">
-          <div class="step-dot">02</div>
-          <div class="step-title">Apply via Cases</div>
-          <p class="step-desc">Connect concepts to real robotics and product examples with full design breakdowns.</p>
-        </div>
-        <div class="path-step">
-          <div class="step-dot">03</div>
-          <div class="step-title">Explore Deeper</div>
-          <p class="step-desc">Dive into the tools, references, and guides behind each topic in the resource library.</p>
-        </div>
-        <div class="path-step">
-          <div class="step-dot">→</div>
-          <div class="step-title">Build Better</div>
-          <p class="step-desc">Apply engineering thinking to your own projects with a stronger foundation under you.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">FormFactor</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="modules.html">Modules</a></li>
-          <li><a href="cases.html">Case Studies</a></li>
-          <li><a href="resources.html">Resources</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-        <span class="footer-copy">© 2025 FormFactor</span>
-      </div>
+    <div class="footer-inner">
+      <div class="footer-brand"><em>Orange</em>ineering</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="modules.html">Modules</a></li>
+        <li><a href="cases.html">Case Studies</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Orangineering</span>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
+</div><!-- /page-wrap -->
+<script src="script.js"></script>
 </body>
 </html>

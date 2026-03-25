@@ -3,113 +3,363 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page Title — FormFactor</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>About — Orangineering</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── ABOUT STYLES ──────────────────────────────── */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      padding: 72px 0 80px;
+    }
+
+    /* Left: Story */
+    .about-left h2 {
+      font-family: var(--font-head);
+      font-size: clamp(34px, 3.5vw, 48px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    .about-left p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 20px;
+    }
+
+    .about-left p strong { color: var(--text2); }
+
+    /* Right: Manifesto + Values */
+    .manifesto {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .manifesto p {
+      font-family: var(--font-head);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .manifesto-attr {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 14px;
+      letter-spacing: .08em;
+    }
+
+    .value-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .value-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 18px;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .2s;
+    }
+
+    .value-item:hover { border-color: var(--accent); }
+
+    .value-icon {
+      width: 38px; height: 38px;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .value-title {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .value-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Divider */
+    .about-divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 0 0 64px;
+    }
+
+    /* Phases */
+    .phases-section { padding-bottom: 80px; }
+
+    .phases-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    .phases-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .phase-item {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .2s, transform .2s;
+    }
+
+    .phase-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .phase-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .phase-name {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .phase-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* CTA banner */
+    .about-cta {
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 48px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 80px;
+      box-shadow: 0 8px 32px rgba(232,98,26,.25);
+    }
+
+    .about-cta-text h3 {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .about-cta-text p {
+      font-size: 15px;
+      color: rgba(255,255,255,.8);
+    }
+
+    .btn-white {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: #fff;
+      color: var(--accent);
+      border: none;
+      padding: 13px 28px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .phases-list { grid-template-columns: repeat(2, 1fr); }
+      .about-cta { flex-direction: column; padding: 36px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <span></span>
-      FormFactor
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="modules.html">Modules</a></li>
-      <li><a href="cases.html">Case Studies</a></li>   <!-- change active per page -->
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html"class="active">About</a></li>
-    </ul>
-    <a href="modules.html" class="nav-cta">Start Learning</a>
-  </nav>
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><polygon points="12,3 21,20 3,20"/></svg>
+    </span>
+    <span class="nav-logo-text"><em>Orange</em>ineering</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="modules.html">Modules</a></li>
+    <li><a href="cases.html">Case Studies</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="modules.html">Start Learning</a>
+</nav>
 
-  <div class="container" style="padding-top: 64px;">
-    <!-- Paste the entire content that was inside <div id="page-cases">, <div id="page-resources">, or <div id="page-about"> -->
-        <div class="container">
- 
-    <div class="about-grid">
-      <!-- Left: Story -->
-      <div class="about-left">
-        <div class="section-label">Our Mission</div>
-        <h2>Built by engineers, for engineers who want to go further.</h2>
-        <p>There's a frustrating gap in how CAD is taught. Tutorials teach you the software. Classes teach you theory. But nobody shows you what happens in between — <strong>the decisions, the failures, the constraints</strong> that define real engineering work.</p>
-        <p>FormFactor exists to fill that gap. It's a structured learning platform built around the premise that intermediate engineers learn best from <strong>real-world examples, documented honestly</strong> — including the parts that didn't work.</p>
-        <p>Every module connects to a case study. Every case study references the resources that powered it. The platform is built to work as a connected learning journey, not a pile of isolated lessons.</p>
-        <p style="margin-top:32px;">
-          <button class="btn-primary" onclick="goTo('modules')">Start with Module 01 →</button>
-        </p>
+<div class="page-wrap">
+<div class="container">
+
+  <div class="page-hero fade-up">
+    <div class="section-label">Our Mission</div>
+    <h2>About Orangineering</h2>
+    <p>A structured learning platform built for intermediate CAD users who want to think and work like engineers, not just operate software.</p>
+  </div>
+
+  <div class="about-grid">
+
+    <!-- Left: Story -->
+    <div class="about-left fade-up">
+      <h2>Built by engineers, for engineers who want to go further.</h2>
+      <p>There's a frustrating gap in how CAD is taught. Tutorials teach you the software. Classes teach you theory. But nobody shows you what happens in between — <strong>the decisions, the failures, the constraints</strong> that define real engineering work.</p>
+      <p>Orangineering exists to fill that gap. It's a structured learning platform built around the premise that intermediate engineers learn best from <strong>real-world examples, documented honestly</strong> — including the parts that didn't work.</p>
+      <p>Every module connects to a case study. Every case study references the resources that powered it. The platform is designed to work as a connected learning journey, not a pile of isolated lessons.</p>
+      <p>The name is a combination of <strong>Open + Engineering</strong> — with a nod to orange, the color of energy, construction, and things being built. If it makes you smile, that's intentional.</p>
+    </div>
+
+    <!-- Right: Manifesto + Values -->
+    <div class="about-right fade-up fade-up-delay-1">
+      <div class="manifesto">
+        <p>Engineering isn't just knowing the tools. It's knowing which question to ask when something doesn't work — and having enough context to answer it.</p>
+        <div class="manifesto-attr">— Orangineering Design Principle</div>
       </div>
- 
-      <!-- Right: Values + Manifesto -->
-      <div class="about-right">
-        <div class="manifesto">
-          <p>Engineering isn't just knowing the tools. It's knowing which question to ask when something doesn't work — and having enough context to answer it.</p>
+
+      <div class="value-list">
+        <div class="value-item">
+          <div class="value-icon">⚙</div>
+          <div>
+            <div class="value-title">Context Over Commands</div>
+            <p class="value-desc">We teach the why behind every design decision, not just the how-to.</p>
+          </div>
         </div>
- 
-        <div class="value-list">
-          <div class="value-item">
-            <div class="value-icon">⚙</div>
-            <div class="value-content">
-              <div class="value-title">Context Over Commands</div>
-              <p class="value-desc">We teach the why behind every design decision, not just the how-to.</p>
-            </div>
+        <div class="value-item">
+          <div class="value-icon">🔁</div>
+          <div>
+            <div class="value-title">Failure is Part of the Process</div>
+            <p class="value-desc">Every case study includes what broke, why, and what changed — because that's where the learning actually happens.</p>
           </div>
-          <div class="value-item">
-            <div class="value-icon">🔁</div>
-            <div class="value-content">
-              <div class="value-title">Failure is Part of the Process</div>
-              <p class="value-desc">Every case study includes what broke, why, and what changed — because that's where the learning actually happens.</p>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="value-icon">📐</div>
-            <div class="value-content">
-              <div class="value-title">Structured, but Not Rigid</div>
-              <p class="value-desc">Modules build on each other, but you can jump to what you need. Your learning path should fit your project.</p>
-            </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">📐</div>
+          <div>
+            <div class="value-title">Structured, but Not Rigid</div>
+            <p class="value-desc">Modules build on each other, but you can jump to what you need. Your learning path should fit your project.</p>
           </div>
         </div>
       </div>
     </div>
- 
-    <hr class="about-divider" />
- 
-    <!-- Roadmap phases -->
-    <div class="phases-section">
-      <div class="section-label">Roadmap</div>
-      <div class="phases-title">Where this is headed</div>
-      <div class="phases-list">
-        <div class="phase-item">
-          <div class="phase-num">Phase 01</div>
-          <div class="phase-name">Foundation</div>
-          <p class="phase-desc">Core modules, 1 case study, clean architecture</p>
-        </div>
-        <div class="phase-item">
-          <div class="phase-num">Phase 02</div>
-          <div class="phase-name">Content</div>
-          <p class="phase-desc">Full module library + 3 more case studies</p>
-        </div>
-        <div class="phase-item">
-          <div class="phase-num">Phase 03</div>
-          <div class="phase-name">Visuals</div>
-          <p class="phase-desc">CAD screenshots, diagrams, video walkthroughs</p>
-        </div>
-        <div class="phase-item">
-          <div class="phase-num">Phase 04</div>
-          <div class="phase-name">Launch</div>
-          <p class="phase-desc">GitHub Pages deploy, mentor & peer feedback</p>
-        </div>
-        <div class="phase-item">
-          <div class="phase-num">Phase 05</div>
-          <div class="phase-name">Community</div>
-          <p class="phase-desc">Q&A, mentorship, downloadable files, industry interviews</p>
-        </div>
+
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="about-cta fade-up">
+    <div class="about-cta-text">
+      <h3>Ready to go beyond the basics?</h3>
+      <p>Start with Module 01 and build from there — or jump straight to a case study.</p>
+    </div>
+    <a class="btn-white" href="modules.html">Start Module 01 →</a>
+  </div>
+
+  <hr class="about-divider" />
+
+  <!-- Roadmap -->
+  <div class="phases-section fade-up">
+    <div class="section-label">Roadmap</div>
+    <div class="phases-title">Where this is headed</div>
+    <div class="phases-list">
+      <div class="phase-item">
+        <span class="phase-num">Phase 01</span>
+        <div class="phase-name">Foundation</div>
+        <p class="phase-desc">Core modules, 1 case study, clean architecture</p>
+      </div>
+      <div class="phase-item">
+        <span class="phase-num">Phase 02</span>
+        <div class="phase-name">Content</div>
+        <p class="phase-desc">Full module library + 3 more case studies</p>
+      </div>
+      <div class="phase-item">
+        <span class="phase-num">Phase 03</span>
+        <div class="phase-name">Visuals</div>
+        <p class="phase-desc">CAD screenshots, diagrams, video walkthroughs</p>
+      </div>
+      <div class="phase-item">
+        <span class="phase-num">Phase 04</span>
+        <div class="phase-name">Launch</div>
+        <p class="phase-desc">GitHub Pages deploy, mentor & peer feedback</p>
+      </div>
+      <div class="phase-item">
+        <span class="phase-num">Phase 05</span>
+        <div class="phase-name">Community</div>
+        <p class="phase-desc">Q&amp;A, mentorship, downloadable files, interviews</p>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+</div><!-- /container -->
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><em>Orange</em>ineering</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="modules.html">Modules</a></li>
+        <li><a href="cases.html">Case Studies</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Orangineering</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+<script src="script.js"></script>
 </body>
 </html>

@@ -3,210 +3,364 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page Title — FormFactor</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Case Studies — Orangineering</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── CASE STUDIES STYLES ───────────────────────── */
+
+    .cases-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-bottom: 80px;
+    }
+
+    .case-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      cursor: pointer;
+      transition: border-color .25s, transform .2s, box-shadow .25s;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .case-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Visual panel */
+    .case-visual {
+      background: var(--bg3);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      overflow: hidden;
+    }
+
+    .case-visual-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: .5;
+    }
+
+    .case-icon-wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .case-icon-wrap svg {
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .case-visual-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* Body */
+    .case-body { padding: 30px 32px; }
+
+    .case-category {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .case-title {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .case-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.68;
+      margin-bottom: 22px;
+    }
+
+    .case-pillars {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 22px;
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .pillar-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .pillar-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+    }
+
+    .case-footer { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Color variants per card accent */
+    .case-card--orange .case-visual { border-right: 2px solid rgba(232,98,26,.2); }
+    .case-card--blue   .case-visual { border-right: 2px solid rgba(27,95,168,.2); }
+    .case-card--green  .case-visual { border-right: 2px solid rgba(45,122,79,.2); }
+    .case-card--red    .case-visual { border-right: 2px solid rgba(184,50,50,.2); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .case-card { grid-template-columns: 1fr; }
+      .case-visual { min-height: 120px; }
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <span></span>
-      FormFactor
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="modules.html">Modules</a></li>
-      <li><a href="cases.html" class="active">Case Studies</a></li>   <!-- change active per page -->
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-    <a href="modules.html" class="nav-cta">Start Learning</a>
-  </nav>
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><polygon points="12,3 21,20 3,20"/></svg>
+    </span>
+    <span class="nav-logo-text"><em>Orange</em>ineering</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="modules.html">Modules</a></li>
+    <li><a href="cases.html">Case Studies</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="modules.html">Start Learning</a>
+</nav>
 
-  <div class="container" style="padding-top: 64px;">
-    <!-- Paste the entire content that was inside <div id="page-cases">, <div id="page-resources">, or <div id="page-about"> -->
-    <div class="container">
-    <div class="page-hero">
-      <div class="section-label">Real-World Examples</div>
-      <h2>Case Studies</h2>
-      <p>This is the key differentiator. Every case study breaks down a real engineering challenge — the problem, the constraints, the decisions made, and what was learned from failure.</p>
-    </div>
- 
-    <div class="cases-grid">
- 
-      <!-- Case 01 -->
-      <div class="case-card">
-        <div class="case-visual">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,.04) 1px,transparent 1px);background-size:20px 20px;"></div>
-          <div class="case-visual-inner">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="30" width="60" height="30" rx="3" stroke="#f5a623" stroke-width="1.5"/>
-              <rect x="24" y="18" width="32" height="16" rx="2" stroke="#f5a623" stroke-width="1.5"/>
-              <circle cx="22" cy="66" r="6" stroke="#7a8099" stroke-width="1.5"/>
-              <circle cx="58" cy="66" r="6" stroke="#7a8099" stroke-width="1.5"/>
-              <line x1="10" y1="45" x2="70" y2="45" stroke="#2a2e38" stroke-width="1"/>
-              <circle cx="40" cy="37" r="3" fill="#f5a623" opacity=".5"/>
-            </svg>
-            <div class="case-visual-label">Drivetrain Assembly</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-category">FRC Robotics · Drivetrain</div>
-          <div class="case-title">Swerve Drive Module Redesign</div>
-          <p class="case-desc">A competition robotics team's full iteration cycle on their swerve drive: from a purchased module that failed at Week 1, through root cause analysis, to a custom-designed replacement built and validated in 72 hours.</p>
-          <div class="case-pillars">
-            <div class="pillar">
-              <span class="pillar-label">Problem</span>
-              <span class="pillar-value">Bevel gear failure under load</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Constraint</span>
-              <span class="pillar-value">72-hr rebuild window</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Outcome</span>
-              <span class="pillar-value">Zero failures, 3rd at regionals</span>
-            </div>
-          </div>
-          <div class="case-footer">
-            <span class="pill">DFM</span>
-            <span class="pill">Iteration</span>
-            <span class="pill">Failure Analysis</span>
-            <span class="pill">Time Constraint</span>
-          </div>
-        </div>
-      </div>
- 
-      <!-- Case 02 -->
-      <div class="case-card">
-        <div class="case-visual">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(96,165,250,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.04) 1px,transparent 1px);background-size:20px 20px;"></div>
-          <div class="case-visual-inner">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="20" y="15" width="40" height="50" rx="3" stroke="#60a5fa" stroke-width="1.5"/>
-              <line x1="20" y1="30" x2="60" y2="30" stroke="#60a5fa" stroke-width="1" opacity=".4"/>
-              <rect x="26" y="35" width="28" height="8" rx="1" stroke="#60a5fa" stroke-width="1" opacity=".6"/>
-              <rect x="26" y="48" width="18" height="8" rx="1" stroke="#60a5fa" stroke-width="1" opacity=".4"/>
-              <circle cx="50" cy="22" r="4" stroke="#60a5fa" stroke-width="1.5" opacity=".7"/>
-            </svg>
-            <div class="case-visual-label">Actuator Bracket</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-category">Manufacturing · Sheet Metal</div>
-          <div class="case-title">Actuator Bracket: 3D Print to Sheet Metal</div>
-          <p class="case-desc">How a team's arm mounting bracket evolved from a 3D-printed prototype to a laser-cut sheet metal part — and why that transition required rethinking every feature of the original design from scratch.</p>
-          <div class="case-pillars">
-            <div class="pillar">
-              <span class="pillar-label">Problem</span>
-              <span class="pillar-value">Print delaminating under torque</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Constraint</span>
-              <span class="pillar-value">No machined pockets allowed</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Outcome</span>
-              <span class="pillar-value">60% weight reduction</span>
-            </div>
-          </div>
-          <div class="case-footer">
-            <span class="pill">Sheet Metal</span>
-            <span class="pill">DFM</span>
-            <span class="pill">Process Change</span>
-          </div>
-        </div>
-      </div>
- 
-      <!-- Case 03 -->
-      <div class="case-card">
-        <div class="case-visual">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,222,128,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(74,222,128,.04) 1px,transparent 1px);background-size:20px 20px;"></div>
-          <div class="case-visual-inner">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="22" stroke="#4ade80" stroke-width="1.5"/>
-              <circle cx="40" cy="40" r="12" stroke="#4ade80" stroke-width="1" opacity=".5"/>
-              <circle cx="40" cy="40" r="4" fill="#4ade80" opacity=".3"/>
-              <line x1="40" y1="18" x2="40" y2="62" stroke="#4ade80" stroke-width="1" opacity=".3"/>
-              <line x1="18" y1="40" x2="62" y2="40" stroke="#4ade80" stroke-width="1" opacity=".3"/>
-              <rect x="52" y="28" width="14" height="8" rx="2" stroke="#4ade80" stroke-width="1"/>
-            </svg>
-            <div class="case-visual-label">Intake Mechanism</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-category">FRC Robotics · Game Piece Handling</div>
-          <div class="case-title">Intake Mechanism — 5 Iterations in 6 Weeks</div>
-          <p class="case-desc">A complete documented history of an intake mechanism from first sketch to final game-ready design. Five distinct iterations, each solving one problem and revealing the next — with full CAD and design rationale for every version.</p>
-          <div class="case-pillars">
-            <div class="pillar">
-              <span class="pillar-label">Problem</span>
-              <span class="pillar-value">Inconsistent game piece capture</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Constraint</span>
-              <span class="pillar-value">Weight budget: 4 lbs max</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Outcome</span>
-              <span class="pillar-value">98% capture rate at competition</span>
-            </div>
-          </div>
-          <div class="case-footer">
-            <span class="pill">Iteration</span>
-            <span class="pill">Testing</span>
-            <span class="pill">Weight Budget</span>
-            <span class="pill">Mechanism Design</span>
-          </div>
-        </div>
-      </div>
- 
-      <!-- Case 04 -->
-      <div class="case-card">
-        <div class="case-visual">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(248,113,113,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(248,113,113,.04) 1px,transparent 1px);background-size:20px 20px;"></div>
-          <div class="case-visual-inner">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="40,12 68,58 12,58" stroke="#f87171" stroke-width="1.5" fill="none"/>
-              <polygon points="40,26 56,52 24,52" stroke="#f87171" stroke-width="1" opacity=".4" fill="none"/>
-              <line x1="40" y1="26" x2="40" y2="52" stroke="#f87171" stroke-width="1" opacity=".3"/>
-              <circle cx="40" cy="52" r="3" fill="#f87171" opacity=".5"/>
-            </svg>
-            <div class="case-visual-label">Structural Gusset</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-category">Structural Design · FEA</div>
-          <div class="case-title">Gusset Geometry & the Cost of Assumptions</div>
-          <p class="case-desc">A structural failure that shouldn't have happened — and the FEA analysis that explained exactly why it did. This case walks through how an over-simplified load assumption led to a field failure, and how to set up a proper validation workflow to prevent it.</p>
-          <div class="case-pillars">
-            <div class="pillar">
-              <span class="pillar-label">Problem</span>
-              <span class="pillar-value">Gusset cracked under lateral load</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Constraint</span>
-              <span class="pillar-value">Can't add mass to the joint</span>
-            </div>
-            <div class="pillar">
-              <span class="pillar-label">Outcome</span>
-              <span class="pillar-value">Geometry change, same mass</span>
-            </div>
-          </div>
-          <div class="case-footer">
-            <span class="pill">FEA</span>
-            <span class="pill">Failure Analysis</span>
-            <span class="pill">Structural</span>
-          </div>
-        </div>
-      </div>
- 
-    </div>
-  </div>
+<div class="page-wrap">
+<div class="container">
+
+  <div class="page-hero fade-up">
+    <div class="section-label">Real-World Examples</div>
+    <h2>Case Studies</h2>
+    <p>This is the key differentiator. Every case study breaks down a real engineering challenge — the problem, the constraints, the decisions made, and what failure taught the team.</p>
   </div>
 
-  <script src="script.js"></script>
+  <div class="cases-grid">
+
+    <!-- ── CASE 01 ─────────────────────────────────── -->
+    <div class="case-card case-card--orange fade-up">
+      <div class="case-visual">
+        <div class="case-visual-grid"></div>
+        <div class="case-icon-wrap">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="26" width="56" height="28" rx="3" stroke="#E8621A" stroke-width="1.5"/>
+            <rect x="20" y="14" width="32" height="16" rx="2" stroke="#E8621A" stroke-width="1.5"/>
+            <circle cx="20" cy="60" r="6" stroke="#A8957F" stroke-width="1.5"/>
+            <circle cx="52" cy="60" r="6" stroke="#A8957F" stroke-width="1.5"/>
+            <line x1="8" y1="41" x2="64" y2="41" stroke="#D4C5B0" stroke-width="1"/>
+            <circle cx="36" cy="33" r="3" fill="#E8621A" opacity=".5"/>
+          </svg>
+          <div class="case-visual-label">Drivetrain</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-category">FRC Robotics · Drivetrain</div>
+        <div class="case-title">Swerve Drive Module Redesign</div>
+        <p class="case-desc">A competition robotics team's full iteration cycle on their swerve drive: from a purchased module that failed at Week 1, through root cause analysis, to a custom-designed replacement built and validated in 72 hours.</p>
+        <div class="case-pillars">
+          <div class="pillar">
+            <span class="pillar-label">Problem</span>
+            <span class="pillar-value">Bevel gear failure under load</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Constraint</span>
+            <span class="pillar-value">72-hr rebuild window</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Outcome</span>
+            <span class="pillar-value">Zero failures, 3rd at regionals</span>
+          </div>
+        </div>
+        <div class="case-footer">
+          <span class="pill">DFM</span>
+          <span class="pill">Iteration</span>
+          <span class="pill">Failure Analysis</span>
+          <span class="pill">Time Constraint</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CASE 02 ─────────────────────────────────── -->
+    <div class="case-card case-card--blue fade-up fade-up-delay-1">
+      <div class="case-visual">
+        <div class="case-visual-grid"></div>
+        <div class="case-icon-wrap">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="12" width="36" height="48" rx="3" stroke="#1B5FA8" stroke-width="1.5"/>
+            <line x1="18" y1="26" x2="54" y2="26" stroke="#1B5FA8" stroke-width="1" opacity=".4"/>
+            <rect x="24" y="32" width="24" height="7" rx="1" stroke="#1B5FA8" stroke-width="1" opacity=".6"/>
+            <rect x="24" y="44" width="16" height="7" rx="1" stroke="#1B5FA8" stroke-width="1" opacity=".4"/>
+            <circle cx="45" cy="19" r="4" stroke="#1B5FA8" stroke-width="1.5" opacity=".7"/>
+          </svg>
+          <div class="case-visual-label">Actuator Bracket</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-category">Manufacturing · Sheet Metal</div>
+        <div class="case-title">Actuator Bracket: 3D Print to Sheet Metal</div>
+        <p class="case-desc">How a team's arm mounting bracket evolved from a 3D-printed prototype to a laser-cut sheet metal part — and why that transition required rethinking every feature of the original design from scratch.</p>
+        <div class="case-pillars">
+          <div class="pillar">
+            <span class="pillar-label">Problem</span>
+            <span class="pillar-value">Print delaminating under torque</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Constraint</span>
+            <span class="pillar-value">No machined pockets allowed</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Outcome</span>
+            <span class="pillar-value">60% weight reduction</span>
+          </div>
+        </div>
+        <div class="case-footer">
+          <span class="pill">Sheet Metal</span>
+          <span class="pill">DFM</span>
+          <span class="pill">Process Change</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CASE 03 ─────────────────────────────────── -->
+    <div class="case-card case-card--green fade-up fade-up-delay-2">
+      <div class="case-visual">
+        <div class="case-visual-grid"></div>
+        <div class="case-icon-wrap">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="36" cy="36" r="22" stroke="#2D7A4F" stroke-width="1.5"/>
+            <circle cx="36" cy="36" r="12" stroke="#2D7A4F" stroke-width="1" opacity=".5"/>
+            <circle cx="36" cy="36" r="4" fill="#2D7A4F" opacity=".35"/>
+            <line x1="36" y1="14" x2="36" y2="58" stroke="#2D7A4F" stroke-width="1" opacity=".3"/>
+            <line x1="14" y1="36" x2="58" y2="36" stroke="#2D7A4F" stroke-width="1" opacity=".3"/>
+            <rect x="48" y="24" width="14" height="8" rx="2" stroke="#2D7A4F" stroke-width="1"/>
+          </svg>
+          <div class="case-visual-label">Intake Mechanism</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-category">FRC Robotics · Game Piece Handling</div>
+        <div class="case-title">Intake Mechanism — 5 Iterations in 6 Weeks</div>
+        <p class="case-desc">A complete documented history of an intake mechanism from first sketch to final game-ready design. Five distinct iterations, each solving one problem and revealing the next — with full design rationale for every version.</p>
+        <div class="case-pillars">
+          <div class="pillar">
+            <span class="pillar-label">Problem</span>
+            <span class="pillar-value">Inconsistent game piece capture</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Constraint</span>
+            <span class="pillar-value">Weight budget: 4 lbs max</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Outcome</span>
+            <span class="pillar-value">98% capture rate at competition</span>
+          </div>
+        </div>
+        <div class="case-footer">
+          <span class="pill">Iteration</span>
+          <span class="pill">Testing</span>
+          <span class="pill">Weight Budget</span>
+          <span class="pill">Mechanism Design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CASE 04 ─────────────────────────────────── -->
+    <div class="case-card case-card--red fade-up fade-up-delay-3">
+      <div class="case-visual">
+        <div class="case-visual-grid"></div>
+        <div class="case-icon-wrap">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="36,10 64,56 8,56" stroke="#B83232" stroke-width="1.5" fill="none"/>
+            <polygon points="36,24 52,50 20,50" stroke="#B83232" stroke-width="1" opacity=".4" fill="none"/>
+            <line x1="36" y1="24" x2="36" y2="50" stroke="#B83232" stroke-width="1" opacity=".3"/>
+            <circle cx="36" cy="50" r="3" fill="#B83232" opacity=".5"/>
+          </svg>
+          <div class="case-visual-label">Structural Gusset</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-category">Structural Design · FEA</div>
+        <div class="case-title">Gusset Geometry & the Cost of Assumptions</div>
+        <p class="case-desc">A structural failure that shouldn't have happened — and the FEA analysis that explained exactly why it did. Walks through how an over-simplified load assumption led to a field failure, and how to set up a proper validation workflow.</p>
+        <div class="case-pillars">
+          <div class="pillar">
+            <span class="pillar-label">Problem</span>
+            <span class="pillar-value">Gusset cracked under lateral load</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Constraint</span>
+            <span class="pillar-value">Can't add mass to the joint</span>
+          </div>
+          <div class="pillar">
+            <span class="pillar-label">Outcome</span>
+            <span class="pillar-value">Geometry change, same mass</span>
+          </div>
+        </div>
+        <div class="case-footer">
+          <span class="pill">FEA</span>
+          <span class="pill">Failure Analysis</span>
+          <span class="pill">Structural</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /container -->
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><em>Orange</em>ineering</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="modules.html">Modules</a></li>
+        <li><a href="cases.html">Case Studies</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Orangineering</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+<script src="script.js"></script>
 </body>
 </html>
