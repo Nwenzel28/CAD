@@ -1,646 +1,494 @@
 /* ═══════════════════════════════════════════════════════
    ORANGINEERING — Module 01: Design for Manufacturing
    Content data file (module-01-data.js)
-
-   To edit content: change the blocks inside each section.
-   To add a section: push a new object into the sections array.
-   Block type reference is in module-renderer.js.
 ═══════════════════════════════════════════════════════ */
 
 const MODULE_CONTENT = {
   number:      "01",
   title:       "Design for Manufacturing",
   difficulty:  "Intermediate",
-  duration:    "~3 hrs",
+  duration:    "~4 hrs",
   description: "Learn to design parts that can actually be built. Understand tolerancing, feature minimization, and how your CAD decisions translate directly to machine time, cost, and part quality.",
-  topics:      ["GD&T Basics", "Tolerancing", "DFM Principles", "Material Selection", "Draft Angles"],
+  topics:      ["GD&T Basics", "Tolerancing", "DFM Principles", "Material Selection", "Draft Angles", "Process Selection"],
   prevModule:  null,
   nextModule:  "02-iteration.html",
 
   sections: [
 
-    /* ── SECTION 1 ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       SECTION 1 — What is DFM?
+    ══════════════════════════════════════════════════ */
     {
-        title: "Why DFM Matters",
-        blocks: [
-
-          {
-            type: "text",
-            content: [
-              "Most CAD users learn how to create geometry. Far fewer learn how to create geometry that can actually be manufactured. This gap is where real-world engineering problems begin.",
-              "Design for Manufacturing (DFM) is the practice of thinking about how a part will be made while you are designing it — not after you're done. It connects your CAD decisions directly to cost, time, and part quality."
-            ]
-          },
-
-          {
-            type: "callout",
-            kind: "warning",
-            content: "If you design first and think about manufacturing later, you will almost always need to redesign the part — usually when time is limited."
-          },
-
-          {
-            type: "text",
-            content: [
-              "CAD software gives you a powerful but misleading ability: you can design almost anything. But manufacturing is constrained by real tools, real materials, and real costs.",
-              "Good engineering is not about designing the most complex part — it's about designing the simplest part that achieves the required function."
-            ]
-          },
-
-          {
-            type: "image",
-            caption: "Over-Designed vs Manufacturing-Efficient Part",
-            hint: "Left: complex part with many small features, deep pockets, and tight corners. Right: simplified version with fewer features and larger radii"
-          },
-
-          {
-            type: "text",
-            content: [
-              "Even if two parts perform the exact same function, their cost can vary dramatically depending on how they are designed. The difference comes from how difficult they are to manufacture.",
-              "To understand DFM, you need to understand where cost actually comes from."
-            ]
-          },
-
-          {
-            type: "keyterms",
-            title: "Primary Manufacturing Cost Drivers",
-            items: [
-              {
-                term: "Setup Time",
-                definition: "Time required to prepare the machine, fixture the part, and align everything. Each setup adds significant cost."
-              },
-              {
-                term: "Machining Time",
-                definition: "Time spent actively cutting material. More features and deeper cuts increase this dramatically."
-              },
-              {
-                term: "Tool Changes",
-                definition: "Switching between tools during machining. More features usually require more tools."
-              },
-              {
-                term: "Tolerance Requirements",
-                definition: "Tighter tolerances require slower machining, better tools, and more inspection — increasing cost."
-              }
-            ]
-          },
-
-          {
-            type: "callout",
-            kind: "note",
-            content: "Material cost is often NOT the main driver. Machining time and setup usually dominate."
-          },
-
-          {
-            type: "text",
-            content: [
-              "Every feature you add to a part has a cost. A hole requires drilling. A pocket requires milling. A fillet may require a different tool. These operations add up quickly.",
-              "This leads to one of the most important ideas in DFM: every feature must justify its existence."
-            ]
-          },
-
-          {
-            type: "steps",
-            title: "How Features Translate to Cost",
-            items: [
-              {
-                heading: "More features → more toolpaths",
-                detail: "Each feature requires the machine to perform additional operations, increasing machining time."
-              },
-              {
-                heading: "More setups → more time",
-                detail: "If a part must be repositioned to access different features, setup time increases significantly."
-              },
-              {
-                heading: "Complex geometry → slower machining",
-                detail: "Tight corners, deep pockets, and small details require slower, more careful cutting."
-              },
-              {
-                heading: "Tighter tolerances → higher precision work",
-                detail: "The machine must move more slowly and parts must be inspected more carefully."
-              }
-            ]
-          },
-
-          {
-            type: "image",
-            caption: "Deep Pocket vs Open Geometry",
-            hint: "Comparison showing a deep narrow pocket requiring long tool vs a wide shallow pocket that is easy to machine"
-          },
-
-          {
-            type: "text",
-            content: [
-              "Manufacturing is also limited by the physical tools used to make parts. These tools have shape and size constraints that directly affect what geometry is possible.",
-              "For example, most machining is done with rotating tools that are cylindrical. This creates natural limitations in the shapes they can produce."
-            ]
-          },
-
-          {
-            type: "keyterms",
-            title: "Tool Constraints",
-            items: [
-              {
-                term: "Tool Diameter",
-                definition: "Limits how small internal features can be. Smaller tools are weaker and slower."
-              },
-              {
-                term: "Tool Length",
-                definition: "Longer tools can reach deeper features but are less stable and more prone to vibration."
-              },
-              {
-                term: "Tool Shape",
-                definition: "Most tools are round, meaning internal corners will always have a radius unless special processes are used."
-              }
-            ]
-          },
-
-          {
-            type: "callout",
-            kind: "warning",
-            content: "Perfectly sharp internal corners are not possible with standard machining tools."
-          },
-
-          {
-            type: "image",
-            caption: "Internal Corner Limitation",
-            hint: "Diagram showing a round cutting tool leaving a filleted internal corner instead of a sharp 90° edge"
-          },
-
-          {
-            type: "text",
-            content: [
-              "At this point, the way you evaluate your designs should start to change. Instead of asking 'Can I model this?', you should be asking a different set of questions."
-            ]
-          },
-
-          {
-            type: "steps",
-            title: "The DFM Mindset",
-            items: [
-              {
-                heading: "Can a tool reach this feature?",
-                detail: "If a tool cannot physically access the geometry, it cannot be manufactured without special processes."
-              },
-              {
-                heading: "How many setups are required?",
-                detail: "Each additional setup increases cost and introduces potential alignment errors."
-              },
-              {
-                heading: "Does this feature improve function?",
-                detail: "If not, it is likely unnecessary and should be removed."
-              }
-            ]
-          },
-
-          {
-            type: "callout",
-            kind: "tip",
-            content: "A strong design is one where every feature has a clear purpose tied to function."
-          },
-
-          {
-            type: "text",
-            content: [
-              "Many beginner designs include extra features that look good in CAD but provide no functional benefit. These features increase cost, machining time, and complexity without improving performance.",
-              "Learning to remove unnecessary features is just as important as learning to create them."
-            ]
-          },
-
-          {
-            type: "image",
-            caption: "Unnecessary vs Functional Features",
-            hint: "Highlighted CAD model showing decorative fillets and extra holes vs a cleaned-up version with only functional elements"
-          },
-
-          {
-            type: "text",
-            content: [
-              "Ultimately, DFM is about efficiency. The best designs achieve their goal with the least complexity, the fewest operations, and the lowest cost.",
-              "This doesn't mean oversimplifying — it means making intentional decisions about every aspect of your design."
-            ]
-          },
-
-          {
-            type: "callout",
-            kind: "example",
-            content: "A part with 10 features is not inherently better than a part with 4. If both perform the same function, the simpler part will almost always be faster, cheaper, and more reliable to produce."
-          },
-
-          {
-            type: "checklist",
-            title: "Section 1 Takeaways",
-            items: [
-              { type: "do", text: "Think about manufacturing while designing, not after" },
-              { type: "do", text: "Minimize unnecessary features" },
-              { type: "do", text: "Consider tool limitations and access" },
-              { type: "do", text: "Reduce setups whenever possible" },
-              { type: "dont", text: "Don't assume CAD geometry can always be manufactured" },
-              { type: "dont", text: "Don't add features without a functional reason" }
-            ]
-          }
-
-        ]
-    },
-
-    /* ── SECTION 2 ──────────────────────────────────── */
-    {
-      title: "Understanding Manufacturing Processes",
+      title: "What is Design for Manufacturing?",
       blocks: [
-
         {
           type: "text",
           content: [
-            "When you design a part, you're not just creating geometry — you're choosing how that geometry will be made. The same part can be easy, difficult, or completely impossible depending on the manufacturing process used.",
-            "This is one of the biggest mindset shifts in engineering: <strong>you are not designing shapes, you are designing for a process.</strong> A great CAD model that ignores manufacturing constraints is not a good design — it’s just a drawing.",
-            "In this section, you'll learn how different manufacturing processes work, what they are good at, where they fail, and how to choose the right one for your design."
+            "Design for Manufacturing (DFM) is the practice of designing parts with the manufacturing process in mind from the very start — not as an afterthought when a quote comes back three times over budget. It's the difference between a part that looks correct in CAD and a part that can be made at reasonable cost, on schedule, and to the quality you actually need.",
+            "Most intermediate CAD users have no problem modeling complex geometry. The harder skill is modeling geometry that a machinist, sheet metal shop, or 3D printer can reproduce accurately, efficiently, and repeatedly. Every feature you add to a model is a commitment of time, money, and potential error in the real world. DFM is the discipline of making those commitments intentionally."
           ]
         },
-
         {
           type: "callout",
           kind: "note",
-          content: "Every manufacturing process is a set of rules. If your design follows those rules, it’s easy and cheap to make. If it breaks them, it becomes expensive, slow, or impossible."
+          content: "DFM isn't about dumbing down your designs. It's about understanding the language of each manufacturing process well enough to communicate your design intent clearly — and to know when a clever geometric trick is going to cost you dearly."
         },
-
         {
           type: "text",
           content: [
-            "Each manufacturing process defines three critical things: what shapes you can create, how precise those shapes can be, and how much the part will cost to produce.",
-            "For example, a shape with internal cavities might be trivial to 3D print but impossible to machine without splitting the part into multiple pieces. A thin metal bracket might be extremely efficient in sheet metal but unnecessarily complex if machined from a solid block.",
-            "Strong designers think about the manufacturing process <strong>before</strong> they begin modeling — not after."
+            "The three core questions of DFM cut through most design problems quickly:",
+            "<strong>1. Can it be made?</strong> — Is the geometry physically achievable with the chosen process? Are there features a tool can't reach, a mold can't eject, or a printer can't bridge?",
+            "<strong>2. Can it be measured?</strong> — Every critical dimension needs a way to be verified after production. If you can't inspect it, you can't control it, and you can't guarantee function.",
+            "<strong>3. Can it be made consistently?</strong> — A process that produces one good part in ten is not production-ready. Can your tolerances be held across a full batch without heroic effort from the operator?"
           ]
         },
-
-        {
-          type: "keyterms",
-          title: "Major Manufacturing Processes",
-          items: [
-            {
-              term: "CNC Machining",
-              definition: "Material is removed from a solid block using rotating cutting tools. It produces highly accurate and strong parts, but requires tool access to all features. Internal sharp corners are impossible, and deep narrow pockets increase cost and reduce quality."
-            },
-            {
-              term: "Sheet Metal / Laser Cutting",
-              definition: "Flat sheets are cut into 2D shapes and then bent into 3D forms. Extremely efficient for brackets and enclosures, but limited to geometries that can be unfolded into a flat pattern. Bend radii and hole placement must follow strict rules."
-            },
-            {
-              term: "FDM 3D Printing",
-              definition: "Material is deposited layer by layer to build a part. It allows complex geometry and rapid prototyping, but parts are weaker between layers and struggle with overhangs without support material."
-            },
-            {
-              term: "Injection Molding",
-              definition: "Molten material is injected into a mold to create parts at high volume. It produces consistent, high-quality parts, but requires draft angles, uniform wall thickness, and significant upfront tooling cost."
-            }
-          ]
-        },
-
-        {
-          type: "image",
-          caption: "Manufacturing Constraints by Process",
-          hint: "Four-panel diagram: CNC tool access directions, sheet metal flat pattern with bends, 3D printing layers and overhang supports, injection molding with draft angles"
-        },
-
-        {
-          type: "text",
-          content: [
-            "Most design failures happen when a part violates the constraints of its manufacturing process. These constraints are not suggestions — they are physical limitations of tools, materials, and machines.",
-            "Understanding these limitations early will save you from redesigns, delays, and unnecessary cost."
-          ]
-        },
-
-        {
-          type: "text",
-          content: [
-            "<strong>Common constraint failures:</strong>",
-            "<br><br><strong>CNC Machining:</strong> Internal sharp corners cannot be created because cutting tools are round. Deep pockets (more than ~4× their width) cause tool deflection and poor surface finish.",
-            "<br><strong>Sheet Metal:</strong> Holes placed too close to bends will deform. Bends tighter than the material thickness can crack the part.",
-            "<br><strong>3D Printing:</strong> Overhangs greater than ~45° require supports. Tall, thin features can wobble or fail during printing.",
-            "<br><strong>Injection Molding:</strong> Vertical walls without draft angles will stick in the mold. Uneven wall thickness leads to warping and defects."
-          ]
-        },
-
-        {
-          type: "callout",
-          kind: "warning",
-          content: "Most 'bad designs' are actually good designs for the wrong manufacturing process."
-        },
-
-        {
-          type: "steps",
-          title: "How to Choose a Manufacturing Process",
-          items: [
-            {
-              heading: "Define the function",
-              detail: "What loads will the part experience? Does it need high strength, flexibility, or precision? Function determines your requirements."
-            },
-            {
-              heading: "Estimate quantity",
-              detail: "Are you making one part or ten thousand? 3D printing is great for prototypes, while injection molding is only viable at high volume."
-            },
-            {
-              heading: "Identify critical features",
-              detail: "Which dimensions matter most? Tight tolerances or complex geometry may eliminate certain processes."
-            },
-            {
-              heading: "Match process capabilities",
-              detail: "Choose the process that naturally produces your required geometry and performance with minimal extra effort."
-            },
-            {
-              heading: "Validate constraints",
-              detail: "Check that your design follows all the rules of the chosen process before finalizing."
-            }
-          ]
-        },
-
-        {
-          type: "text",
-          content: [
-            "To see how important process selection is, imagine the same part made in different ways:",
-            "<br><br>- 3D printed: fast and cheap, but weaker and less precise",
-            "<br>- CNC machined: strong and accurate, but more expensive",
-            "<br>- Sheet metal: lightweight and efficient, but limited geometry",
-            "<br><br>There is no universally 'best' process — only the best process for a specific situation."
-          ]
-        },
-
-        {
-          type: "callout",
-          kind: "tip",
-          content: "A prototype made with 3D printing does not guarantee your design will work when machined or molded. Always validate your final manufacturing method."
-        },
-
-        {
-          type: "steps",
-          title: "Challenge: Which Process Would You Choose?",
-          items: [
-            {
-              heading: "Scenario 1",
-              detail: "You need a complex, organic-shaped part with internal channels for airflow. → Best choice: 3D printing, because it can produce complex internal geometry without tooling constraints."
-            },
-            {
-              heading: "Scenario 2",
-              detail: "You need a flat bracket with several bends and mounting holes. → Best choice: sheet metal, because it is fast, strong, and efficient for bent parts."
-            },
-            {
-              heading: "Scenario 3",
-              detail: "You need a precise rotating shaft with tight tolerances. → Best choice: CNC machining, because it provides high accuracy and surface finish."
-            }
-          ]
-        },
-
-        {
-          type: "checklist",
-          title: "Challenge: Spot the DFM Issue",
-          items: [
-            { type: "dont", text: "Sharp internal corner in a machined pocket (CNC cannot create this)" },
-            { type: "dont", text: "No draft angle on a molded plastic part (will stick in mold)" },
-            { type: "dont", text: "Hole placed directly next to a bend in sheet metal (will deform)" },
-            { type: "dont", text: "Tall, thin unsupported wall in a 3D print (likely to fail)" },
-            { type: "do", text: "Filleted internal corners for machining" },
-            { type: "do", text: "Proper draft angles for molded parts" },
-            { type: "do", text: "Adequate spacing between holes and bends" },
-            { type: "do", text: "Designs that respect layer strength in 3D printing" }
-          ]
-        },
-
         {
           type: "callout",
           kind: "example",
-          content: "A team designed a machined aluminum part with deep narrow pockets and perfectly sharp internal corners. The machinist had to use smaller tools, slower speeds, and multiple setups — tripling the cost. By simply adding fillets and widening the pockets, the part became faster, cheaper, and easier to produce with no loss of function."
+          content: "<strong>Real scenario:</strong> A robotics team designed a gearbox housing with a beautiful internal cavity for weight reduction. The cavity required a 5-axis toolpath, two custom tool lengths, and added 4 hours of machine time. The weight saved was 47 grams. A simple pocket with standard tooling would have saved 38 grams in 20 minutes. The 9-gram difference cost them $340 in machining. DFM is about catching that trade-off before you send the drawing."
         },
-
         {
-          type: "text",
-          content: [
-            "Before you start your next design, ask yourself:",
-            "<br><br><strong>What process am I designing for?</strong>",
-            "<br><strong>What are its limitations?</strong>",
-            "<br><strong>Am I working with those limitations — or against them?</strong>",
-            "<br><br>Answering these questions early is one of the fastest ways to improve as an engineer."
-          ]
+          type: "image",
+          caption: "DFM Decision Flow",
+          hint: "Flowchart: Design intent → Process selection → Feasibility check (can it be made / measured / repeated?) → Revise or release"
         },
-
         {
-          type: "callout",
-          kind: "note",
-          content: "Great designers don’t fight manufacturing processes — they design with them."
+          type: "challenge",
+          difficulty: "beginner",
+          title: "Identify the DFM Problem",
+          prompt: "Look at the following part description and identify which of the three DFM questions it fails — and why.",
+          context: "A bracket is designed with a 12mm deep pocket that is 2mm wide, with a tolerance of ±0.005mm on the pocket width. The pocket is located in the center of the part, surrounded by walls on all four sides.",
+          tasks: [
+            "Which of the three DFM questions does this design fail, and why?",
+            "Name at least two specific manufacturing problems this feature would cause.",
+            "Suggest one design change that would solve the problem without changing the part's function."
+          ],
+          hint: "Think about what tool would need to cut this pocket. What aspect ratio does a 2mm wide, 12mm deep slot represent? What happens to a cutting tool at that ratio?",
+          answer: "The pocket fails <strong>Can it be made?</strong> on two counts. First, a 2mm end mill cutting 12mm deep represents a 6:1 depth-to-diameter ratio — well past the 3:1 limit where tool deflection becomes severe and the 4:1 limit where breakage is likely. Second, ±0.005mm is a grinding/lapping tolerance, not a milling tolerance. Standard CNC milling holds ±0.025–0.05mm on a good day. The fix: widen the pocket to at least 8–10mm (giving a workable ~1.5:1 ratio), and relax the tolerance to ±0.05mm unless there is a specific functional reason for the tighter value."
         }
-
       ]
     },
 
-    /* ── SECTION 3 ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       SECTION 2 — Manufacturing Processes
+    ══════════════════════════════════════════════════ */
+    {
+      title: "Understanding Manufacturing Processes",
+      blocks: [
+        {
+          type: "text",
+          content: [
+            "Every manufacturing process is a set of trade-offs. Speed vs. precision. Complexity vs. cost. Setup time vs. run time. Before you model a single feature, you need to understand which process will produce your part — and design specifically for its constraints and strengths.",
+            "The most expensive mistake you can make in DFM is designing for the wrong process. A part optimized for 3D printing that gets quoted for CNC machining will come back at 10x the expected cost. Process selection is not a downstream decision — it needs to happen before CAD."
+          ]
+        },
+        {
+          type: "keyterms",
+          title: "Core Processes and Their Constraints",
+          items: [
+            {
+              term: "CNC Machining",
+              definition: "Material is removed by rotating tools moving along programmed paths. Requires line-of-sight tool access — features must be reachable from a defined machining direction. Cannot create truly enclosed internal voids. Excellent dimensional accuracy (±0.025mm typical). Best for metal structural parts, housings, and precision interfaces."
+            },
+            {
+              term: "Laser Cutting + Bending",
+              definition: "2D profiles are cut from flat sheet stock with a laser, then bent to shape on a press brake. All geometry is derived from a flat pattern. No internal features — every hole and slot must pass through the full material thickness. Bends must have minimum radii and flange lengths to be achievable."
+            },
+            {
+              term: "FDM 3D Printing",
+              definition: "Plastic is extruded layer-by-layer to build up a part. Parts are weakest perpendicular to layer lines (Z direction). Overhangs beyond 45-50 degrees need support material, which adds post-processing. Dimensional accuracy is typically ±0.2–0.4mm. Best for prototypes, jigs, and low-load structural parts."
+            },
+            {
+              term: "Injection Molding",
+              definition: "Molten plastic is injected into a steel mold under high pressure. Every vertical wall needs draft (typically 1–3 degrees) so the part can eject from the mold. Wall thickness must be uniform (typically 2–4mm) to prevent sink marks, warping, and voids. Very high startup cost (tooling) but very low per-part cost at volume."
+            },
+            {
+              term: "Waterjet Cutting",
+              definition: "A high-pressure water and abrasive stream cuts through material. No heat-affected zone (unlike laser). Can cut almost any material including titanium, stone, and composites. Produces a slightly tapered cut edge. Good for flat profiles where laser power is insufficient."
+            }
+          ]
+        },
+        {
+          type: "callout",
+          kind: "tip",
+          content: "<strong>The prototype trap:</strong> It is standard practice to 3D print a first prototype to check fit and form. That is fine — but a print is not a mechanical test of a machined part. The failure modes are completely different. A printed bracket that survives a load test tells you almost nothing about whether a machined aluminum version will survive the same test."
+        },
+        {
+          type: "text",
+          content: [
+            "Process selection also determines your tolerancing strategy. CNC machining can hold ±0.025mm on a good setup. Sheet metal bending typically holds ±0.5–1mm on bent features. FDM printing is typically ±0.2–0.5mm. Injection molding can be very precise on in-mold features but varies significantly with thermal shrink.",
+            "When a part has mating features — like a shaft into a bearing bore, or a bolt pattern across two plates — the tolerance of each process involved must stack up correctly. This is called a <strong>tolerance stack-up analysis</strong>, covered in detail in Section 3."
+          ]
+        },
+        {
+          type: "challenge",
+          difficulty: "intermediate",
+          title: "Process Selection Decision",
+          prompt: "You need to manufacture a motor mounting plate for a competition robot. The plate is roughly 150mm x 100mm with four mounting holes for the motor, two slots for tensioning adjustment, and three tapped holes for a chain guard. Annual quantity: 2–4 plates per season.",
+          context: "The plate needs to be stiff (no flex under motor torque load), lightweight, and the mounting hole pattern needs to be accurate to ±0.3mm to align with a standard motor face. You have access to a laser cutter, a 3-axis CNC mill, and FDM printers.",
+          tasks: [
+            "Which manufacturing process would you choose for this part, and why?",
+            "Which process would you rule out first, and what specific feature makes it unsuitable?",
+            "What additional information would you want to know before finalizing your process choice?"
+          ],
+          hint: "Consider each feature individually. The tapped holes need accurate thread engagement — which process handles that best at this quantity? The slots for tensioning need to be accurate but also adjustable — does that change anything?",
+          answer: "<strong>Best choice: Laser cutting + tapping.</strong> At 2–4 parts per season, the setup cost of CNC machining is hard to justify. Laser cutting gives accurate hole positions (easily ±0.2mm with a decent machine), clean slots for adjustment, and fast turnaround. The tapped holes can be tapped manually after cutting — the laser gives you accurate pilot holes.<br><br><strong>Rule out first: FDM printing.</strong> The stiffness requirement eliminates it. Even continuous-fiber composites struggle to match aluminum sheet stiffness, and the motor mounting stress concentrations would likely cause delamination over a season.<br><br><strong>Additional info needed:</strong> Material thickness (affects bend radii if any bending is needed), whether the ±0.3mm requirement is on hole position relative to each other (easy with laser) or relative to an external datum (harder), and whether any holes need countersinking (laser cannot do that — needs secondary ops)."
+        }
+      ]
+    },
+
+    /* ══════════════════════════════════════════════════
+       SECTION 3 — Tolerancing Fundamentals
+    ══════════════════════════════════════════════════ */
     {
       title: "Tolerancing Fundamentals",
       blocks: [
         {
           type: "text",
           content: [
-            "A tolerance is the acceptable range of variation for a dimension. No manufacturing process is perfectly repeatable — every part will vary slightly from the nominal (design) dimension. Tolerances define how much variation is acceptable before a part fails to function.",
-            "Over-tolerancing (specifying tighter tolerances than necessary) is one of the most common and costly mistakes in engineering. Tighter tolerances mean more machining time, more inspection, and more rejected parts. Always ask: what tolerance does this feature actually need to function?"
+            "A tolerance is the acceptable range of variation for a dimension. No manufacturing process is perfectly repeatable — every part produced will vary slightly from the nominal dimension. Tolerances define how much variation is acceptable before a part fails to function correctly.",
+            "The key insight that separates engineering from drafting: tolerances are not just about precision. They are about function. The right tolerance is the loosest value that still allows the assembly to work correctly. Anything tighter costs money for no benefit."
           ]
         },
         {
           type: "keyterms",
-          title: "Tolerance Terminology",
+          title: "Core Tolerance Terminology",
           items: [
             {
               term: "Nominal dimension",
-              definition: "The target or ideal value of a dimension, e.g. 25.00 mm."
+              definition: "The target (ideal) value of a dimension. Written as the base number on a drawing, e.g. 25.00mm. The tolerance defines the acceptable deviation from this value."
             },
             {
-              term: "Tolerance",
-              definition: "The total allowable variation. A tolerance of ±0.1 mm on a 25 mm dimension means any value from 24.9 to 25.1 mm is acceptable."
+              term: "Bilateral tolerance",
+              definition: "Variation is allowed in both directions from nominal. Written as 25.00 ± 0.10mm — the part is acceptable anywhere from 24.90 to 25.10mm."
+            },
+            {
+              term: "Unilateral tolerance",
+              definition: "Variation is only allowed in one direction. Written as 25.00 +0.10 / 0.00mm. Used when a feature must not exceed (or must not fall below) a specific value."
             },
             {
               term: "Clearance fit",
-              definition: "The shaft is always smaller than the hole — there is always a gap. Used for parts that need to slide or rotate freely."
+              definition: "The shaft is always smaller than the hole — there is always a gap between them. Used for parts that must slide or rotate freely. Example: a shaft through a plain bearing."
             },
             {
-              term: "Interference fit",
-              definition: "The shaft is always larger than the hole — it must be pressed in. Creates a strong mechanical joint without fasteners."
+              term: "Interference fit (press fit)",
+              definition: "The shaft is always larger than the hole — it must be pressed or thermally assembled. Creates a strong joint without fasteners. Example: a bearing outer race pressed into a housing bore."
             },
             {
               term: "Transition fit",
-              definition: "The fit may be either clearance or interference depending on where within tolerance each part lands."
+              definition: "The fit may be either clearance or interference depending on where each part falls within its tolerance band. Used where parts need to be located precisely but also removable. Example: a dowel pin in a locating hole."
+            },
+            {
+              term: "Tolerance stack-up",
+              definition: "When multiple toleranced dimensions chain together, their worst-case deviations add up. A chain of five ±0.1mm tolerances has a worst-case stack of ±0.5mm. Stack-up analysis finds whether an assembly still works in the worst case."
             }
           ]
         },
         {
           type: "callout",
           kind: "warning",
-          content: "A common mistake: using ±0.001\" tolerances everywhere because it 'looks more precise.' This can multiply part cost by 3–5x with no functional benefit. Tolerance to function, not to habit."
+          content: "<strong>The over-tolerancing trap:</strong> A common habit is specifying ±0.001 inch on everything because it looks precise. A tight tolerance on a machined part can increase cost by 3–5x. On a turned shaft diameter, going from ±0.005 inch to ±0.001 inch often means switching from a standard milling pass to a grinding operation. Tolerance to function, not to habit."
+        },
+        {
+          type: "text",
+          content: [
+            "<strong>How to determine the right tolerance:</strong> Start with the assembly function. What is the minimum clearance the joint needs to operate without binding? What is the maximum gap before the joint becomes sloppy or misaligned? The difference between those two functional limits is your working tolerance budget. Divide it among the parts involved, accounting for the manufacturing capability of each process.",
+            "For example: a hex shaft through a hub needs 0.1mm minimum clearance to install and 0.5mm maximum gap before the hub wobbles. That is a 0.4mm functional budget. Split between shaft diameter and bore diameter, each part gets ±0.1mm — easily achievable with standard CNC turning."
+          ]
         },
         {
           type: "image",
           caption: "Fit Types: Clearance, Transition, Interference",
-          hint: "Side-by-side diagram of shaft/hole pairs showing the three fit types with example tolerance values"
+          hint: "Three diagrams side by side: shaft/hole cross-sections showing the gap (clearance), overlap zone (interference), and straddling zone (transition), each with example tolerance bands labeled"
+        },
+        {
+          type: "challenge",
+          difficulty: "intermediate",
+          title: "Tolerance Stack-Up Analysis",
+          prompt: "You are designing a two-part clamping assembly. A bolt passes through a clearance hole in Plate A, then threads into Plate B. The bolt must be centered within ±1.5mm of the true center of Plate B's threaded hole for the clamp to close correctly.",
+          context: "Plate A's clearance hole is positioned at 50.00mm from its reference edge. Plate B's threaded hole is also positioned at 50.00mm from its reference edge. Both plates are laser cut to a positional tolerance of ±0.4mm on hole centers. The plates are aligned by butting their reference edges together — but there could be a seating gap of up to 0.3mm on each edge.",
+          tasks: [
+            "List every source of positional error between the bolt center and the threaded hole center.",
+            "Calculate the worst-case total misalignment.",
+            "Does the assembly meet the ±1.5mm requirement in the worst case?",
+            "If the margin is uncomfortably thin, suggest one change to improve it."
+          ],
+          hint: "Draw a chain: bolt center → Plate A hole center → Plate A reference edge → seating gap → Plate B reference edge → Plate B hole center. Each link in this chain has a tolerance contribution.",
+          answer: "Sources of error: (1) Plate A hole position: ±0.4mm, (2) Plate A edge seating: up to 0.3mm, (3) Plate B edge seating: up to 0.3mm, (4) Plate B hole position: ±0.4mm.<br><br>Worst-case stack: 0.4 + 0.3 + 0.3 + 0.4 = <strong>±1.4mm total</strong>. This is within the ±1.5mm requirement — but only by 0.1mm margin. That is dangerously close.<br><br>To improve margin: add a dowel pin or alignment feature between the two plates to eliminate the seating gap error (removes 0.6mm from the stack), or tighten the laser cut tolerance to ±0.2mm on those specific holes (removes 0.4mm). Either change brings the stack well within spec."
         }
       ]
     },
 
-    /* ── SECTION 4 ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       SECTION 4 — GD&T Basics
+    ══════════════════════════════════════════════════ */
     {
       title: "GD&T Basics",
       blocks: [
         {
           type: "text",
           content: [
-            "Geometric Dimensioning and Tolerancing (GD&T) is a symbolic language for communicating tolerances on engineering drawings. It goes beyond simple ±dimensional tolerances to define the acceptable variation in form, orientation, location, and runout of features.",
-            "GD&T is the standard used in professional engineering and manufacturing. Learning to read and apply even the most common symbols will make your drawings clearer, more manufacturable, and less likely to be misinterpreted by a fabricator."
-          ]
-        },
-        {
-          type: "keyterms",
-          title: "Most Common GD&T Symbols",
-          items: [
-            {
-              term: "Flatness ⏥",
-              definition: "All points on a surface must lie within two parallel planes separated by the tolerance value. Controls surface quality independent of any datum."
-            },
-            {
-              term: "Perpendicularity ⊥",
-              definition: "A surface or axis must be within a tolerance zone perpendicular to a datum. Critical for mating faces and press fits."
-            },
-            {
-              term: "True Position ⊕",
-              definition: "The center of a hole or feature must fall within a cylindrical tolerance zone centered on the true position. More flexible than ± coordinate tolerances."
-            },
-            {
-              term: "Concentricity / Runout ◎",
-              definition: "Controls how much a feature deviates from a central axis during rotation. Critical for shafts, pulleys, and rotating assemblies."
-            }
+            "Geometric Dimensioning and Tolerancing (GD&T) is a symbolic language for communicating not just the size of features, but their form, orientation, location, and runout. It is the international standard (ASME Y14.5 in the US, ISO 1101 internationally) used on virtually every professional manufacturing drawing.",
+            "Standard ± tolerances only control the size of a dimension. They say nothing about whether a surface is flat, whether a hole is perpendicular to the face it is in, or whether a pattern of holes is correctly positioned relative to each other. GD&T controls all of these — precisely, unambiguously, and in a way that directly drives how a part is inspected."
           ]
         },
         {
           type: "callout",
-          kind: "tip",
-          content: "You don't need to memorize every GD&T symbol — but you should be fluent with flatness, perpendicularity, and true position. Those three cover the majority of real-world drawings."
+          kind: "note",
+          content: "GD&T is often taught as a complex symbol system to memorize. A more useful framing: GD&T is a way of defining <strong>what matters about this feature for it to function</strong>. Each symbol maps to a specific functional requirement. Learn the function first, then the symbol."
+        },
+        {
+          type: "keyterms",
+          title: "The Most Important GD&T Symbols",
+          items: [
+            {
+              term: "Flatness",
+              definition: "All points on a surface must lie within two parallel planes separated by the flatness tolerance value. Flatness is independent of any datum — it only controls the surface itself, not where it sits in space. Used on mating faces, gasket surfaces, and precision bases. Example: a flatness callout of 0.05mm means the highest and lowest points on the surface can be no more than 0.05mm apart."
+            },
+            {
+              term: "Perpendicularity",
+              definition: "A surface or axis must lie within a tolerance zone that is perpendicular to a specified datum. For a bore, this means the axis of the hole must stay within a cylinder of the given diameter that is perfectly perpendicular to the datum face. Critical for press fits (a tilted bore will jam), bearing seats, and any mating interface that needs to be square."
+            },
+            {
+              term: "True Position",
+              definition: "The center of a feature (hole, pin, slot) must fall within a cylindrical tolerance zone centered on the theoretically exact position relative to specified datums. True position is more efficient than ± coordinate tolerances — a ±0.1mm XY tolerance creates a square zone, but a 0.14mm diameter true position zone has the same worst-case diagonal while rejecting fewer good parts."
+            },
+            {
+              term: "Circularity",
+              definition: "At any cross-section, all points on the surface of a cylinder or cone must fall within two concentric circles separated by the tolerance value. Used on shafts, bearing journals, and any round feature where roundness affects function (vibration, seal performance, bearing life)."
+            },
+            {
+              term: "Runout",
+              definition: "When the part is rotated about its datum axis, surface points must not deviate more than the tolerance value. Circular runout measures at individual cross sections; total runout measures across the entire surface simultaneously. Critical for any rotating part — pulleys, gears, shafts, rollers."
+            },
+            {
+              term: "Datum Reference Frame",
+              definition: "A coordinate system defined by datum features (usually labeled A, B, C) from which all GD&T tolerances are measured. The datum scheme defines how the part is held during machining and inspection — and ideally matches how it is constrained in the final assembly. Choosing the wrong datums is one of the most common GD&T mistakes."
+            }
+          ]
+        },
+        {
+          type: "text",
+          content: "A GD&T <strong>Feature Control Frame</strong> is the box on a drawing that communicates all of this. Reading left to right, it contains: the geometric characteristic symbol, the tolerance value (sometimes with a diameter symbol for cylindrical zones), and the datum references in priority order."
         },
         {
           type: "image",
           caption: "GD&T Feature Control Frame Anatomy",
-          hint: "Labeled diagram of a GD&T feature control frame showing the symbol, tolerance value, and datum reference"
+          hint: "Labeled diagram: box divided into compartments showing [geometric symbol | tolerance value | datum A | datum B] with callout lines explaining each compartment's role"
+        },
+        {
+          type: "callout",
+          kind: "tip",
+          content: "Start here: get fluent with flatness, perpendicularity, and true position. Those three symbols cover the majority of real-world mechanical drawings. Once those are second nature, add circularity and runout for rotating components."
+        },
+        {
+          type: "challenge",
+          difficulty: "intermediate",
+          title: "Reading and Applying GD&T",
+          prompt: "A machined aluminum plate has a critical bore that receives a bearing. The bore is 25mm in diameter. The engineering requirement is that the bearing must sit squarely in the bore — if the bore axis tilts more than 0.5mm over its 20mm depth relative to the top face of the plate, the bearing will bind.",
+          context: "The top face of the plate (Datum A) has already been machined and is considered the reference surface. The bore is machined in a second operation.",
+          tasks: [
+            "Which GD&T symbol controls whether the bore axis is square to Datum A?",
+            "Calculate the correct tolerance value to express the 0.5mm / 20mm depth requirement as a GD&T callout.",
+            "Write out how this would appear in a feature control frame (in plain words, e.g. 'perpendicularity, cylindrical zone 0.X mm, relative to Datum A').",
+            "Why is a cylindrical tolerance zone better here than a simple ±0.25mm positional tolerance?"
+          ],
+          hint: "If the bore can tilt at most 0.5mm over 20mm depth, what does that mean for the deviation of the bore axis at any point within those 20mm? The GD&T zone for an axis is cylindrical — the axis must stay inside a cylinder of diameter equal to the tolerance.",
+          answer: "<strong>Symbol: Perpendicularity.</strong><br><br>If the bore can tilt at most 0.5mm over 20mm, the axis can deviate at most 0.5mm from true perpendicular across its full depth. The cylindrical tolerance zone must therefore be <strong>0.5mm diameter</strong> (the axis must stay within a 0.5mm diameter cylinder perpendicular to Datum A).<br><br><strong>Feature control frame:</strong> Perpendicularity | diameter 0.5mm | datum A.<br><br><strong>Why cylindrical zone:</strong> A ±0.25mm positional tolerance in X and Y creates a square zone — the axis could actually deviate up to 0.354mm diagonally (the square's diagonal) while still passing inspection. A cylindrical zone is perfectly round and represents the actual functional constraint uniformly in all directions. It rejects the same bad parts while accepting more good parts."
         }
       ]
     },
 
-    /* ── SECTION 5 ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       SECTION 5 — Material Selection
+    ══════════════════════════════════════════════════ */
     {
       title: "Material Selection",
       blocks: [
         {
           type: "text",
-          content: "Material selection and DFM are tightly linked — the same geometry may be trivial to manufacture in one material and nearly impossible in another. Beyond just mechanical properties, material choice affects what processes are available, what tolerances are achievable, and what the part will cost."
+          content: [
+            "Material selection and DFM are inseparable. The same geometry that is trivial to manufacture in 6061 aluminum might be nearly impossible in 4140 steel — not because of the geometry itself, but because harder materials require slower feed rates, more tool changes, and more careful fixturing. Material choice determines what processes are available, what tolerances are achievable, and ultimately what the part costs.",
+            "Beyond manufacturability, material selection is an engineering decision that requires understanding the actual loads and environment the part will see. Under-specifying a material risks failure. Over-specifying it wastes weight and money. The goal is the minimum material that reliably meets the functional requirements."
+          ]
         },
         {
           type: "keyterms",
-          title: "Common Engineering Materials",
+          title: "Common Engineering Materials for Robotics and Prototyping",
           items: [
             {
               term: "6061-T6 Aluminum",
-              definition: "The workhorse of structural robotics and prototyping. Excellent strength-to-weight ratio, machines beautifully, anodizes well. Weaker at welded joints — use 6061 for machined parts, 5052 for sheet metal."
+              definition: "The default structural material for machined robotics parts. Yield strength ~276 MPa, density 2.7 g/cm³. Machines quickly and cleanly. Anodizes well for corrosion protection and aesthetics. Weaker at heat-affected zones — if welding is required, use 5052 or 6063 instead. The T6 designation means it has been solution heat-treated and artificially aged to maximum hardness."
             },
             {
-              term: "4130 / 4140 Steel",
-              definition: "High-strength alloy steels used where aluminum isn't strong enough. Heavier and harder to machine, but significantly stronger. Good for shafts, gussets, and high-stress joints."
+              term: "5052-H32 Aluminum",
+              definition: "The preferred alloy for sheet metal work. Better formability than 6061 — bends without cracking at tighter radii. Lower yield strength (~193 MPa) but adequate for most brackets and panels. Excellent corrosion resistance. Harder to machine than 6061 due to its tendency to gall on tooling."
             },
             {
-              term: "PLA / PETG (FDM)",
-              definition: "Common FDM print materials. PLA is stiff and easy to print but brittle and heat-sensitive. PETG offers better toughness and temperature resistance. Neither is suitable for high-load structural applications."
+              term: "4130 / 4140 Chromoly Steel",
+              definition: "High-strength alloy steels. 4130 yield strength ~435 MPa (normalized), 4140 even higher. Used where aluminum simply is not strong enough — shafts under high torque, gussets at high-stress joints, critical fasteners. Significantly heavier (7.85 g/cm³) and slower to machine. 4130 is more weldable; 4140 is typically used where maximum hardness is needed."
             },
             {
-              term: "Delrin (Acetal POM)",
-              definition: "A machinable engineering plastic. Excellent for bearings, bushings, and wear surfaces. Self-lubricating, dimensionally stable. A great substitute for metal in low-load sliding interfaces."
+              term: "PLA / PETG (FDM Plastics)",
+              definition: "PLA: stiff, easy to print, poor temperature resistance (softens above 60°C), brittle under impact. PETG: tougher, better temperature resistance (~80°C), slightly flexible. Both are useful for brackets, covers, and non-structural prototypes. Neither is appropriate for high-load structural applications — layer adhesion is the weak point."
+            },
+            {
+              term: "Delrin / Acetal POM",
+              definition: "A machinable engineering plastic. Low friction, dimensionally stable, self-lubricating. Excellent for bushings, wear pads, chain guides, and any sliding interface where you want to protect a metal mating surface. Machines easily and holds tight tolerances. Not suitable for high-load structural parts but outstanding in wear and friction applications."
+            },
+            {
+              term: "Carbon Fiber (CFRP)",
+              definition: "Exceptional stiffness-to-weight ratio. Highly anisotropic — very strong along fiber direction, weaker perpendicular. Difficult to machine without specialized tooling. Joining is tricky — standard fasteners can cause delamination at holes. Worth considering for long spans (arms, beams) where stiffness-to-weight is the critical property."
             }
+          ]
+        },
+        {
+          type: "callout",
+          kind: "warning",
+          content: "<strong>The steel default trap:</strong> Engineers who are unsure often default to steel. It feels safe. But on a mobile robot, every gram of unnecessary structural mass is a gram that cannot be payload, battery, or electronics. Before using steel, ask: what specific property of steel is required here that 6061 aluminum cannot provide? If you cannot answer that question, use aluminum."
+        },
+        {
+          type: "text",
+          content: [
+            "A useful shortcut for comparing structural materials is <strong>specific strength</strong> (yield strength divided by density). 6061-T6 aluminum: ~102 kNm/kg. 4130 steel: ~55 kNm/kg. For the same structural performance, an aluminum part weighs roughly half as much as a steel one.",
+            "That said, stiffness (modulus of elasticity) is a different story. Steel's modulus (~200 GPa) is about 3x aluminum's (~69 GPa). If deflection under load — not strength — is the limiting factor, a steel part can be made thinner while maintaining the same stiffness, potentially closing the weight gap. See the challenge problem below for a worked example of exactly this trade-off."
           ]
         },
         {
           type: "checklist",
           title: "Material Selection Checklist",
           items: [
-            { type: "do",   text: "Define your load case before picking a material" },
-            { type: "do",   text: "Consider the manufacturing process — will this material machine cleanly?" },
-            { type: "do",   text: "Check material availability in the stock sizes you need" },
-            { type: "dont", text: "Don't default to steel when aluminum will work — you're adding weight for no reason" },
-            { type: "dont", text: "Don't assume a 3D-printed part has the same properties as a machined one" },
-            { type: "dont", text: "Don't ignore thermal expansion if the part operates in a hot environment" }
+            { type: "do",   text: "Define your load case (magnitude, direction, impact vs. static) before picking a material" },
+            { type: "do",   text: "Check whether strength or stiffness is the binding constraint — they may point to different materials" },
+            { type: "do",   text: "Verify that your chosen material is available in the stock form (sheet, bar, tube) you need" },
+            { type: "do",   text: "Consider the full manufacturing chain — will this material respond well to your chosen process?" },
+            { type: "do",   text: "Account for environment — will the part see heat, corrosion, UV, or chemical exposure?" },
+            { type: "dont", text: "Don't use steel when aluminum meets the strength requirement — you are adding weight for no reason" },
+            { type: "dont", text: "Don't assume a 3D-printed part has equivalent strength to a machined one from the same base material" },
+            { type: "dont", text: "Don't pick a material based solely on what you are most comfortable modeling in CAD" },
+            { type: "dont", text: "Don't ignore fastener compatibility — dissimilar metals in contact cause galvanic corrosion" }
           ]
+        },
+        {
+          type: "challenge",
+          difficulty: "advanced",
+          title: "Material Trade-Off Analysis",
+          prompt: "You are designing a 400mm-long horizontal arm for a robot. The arm extends from a pivot at one end and carries a 2kg payload at the other. It must not deflect more than 3mm at the tip under the payload load. Choose between 6061-T6 aluminum and 4130 steel for a solid square cross-section.",
+          context: "For a cantilever beam: tip deflection = (F x L³) / (3 x E x I), where F is force, L is length, E is elastic modulus, and I is the second moment of area. For a square cross-section, I = h⁴ / 12. E_aluminum = 69 GPa, E_steel = 200 GPa. Density_aluminum = 2.7 g/cm³, density_steel = 7.85 g/cm³.",
+          tasks: [
+            "For each material, solve for the minimum square cross-section side length h that keeps tip deflection at or below 3mm.",
+            "Calculate the mass of the 400mm arm for each solution.",
+            "Which material results in a lighter arm, and by how much?",
+            "What does this result tell you about the general case for aluminum vs. steel on stiffness-limited beams?"
+          ],
+          hint: "Rearrange the deflection formula to solve for I, then solve for h from I = h⁴/12. F = 2 x 9.81 = 19.62 N. L = 0.4 m. Keep units consistent in SI (Newtons, meters, Pascals), then convert h to mm for the final answer. Volume of the arm = h² x L.",
+          answer: "F = 19.62 N, L = 0.4 m, delta_max = 0.003 m.<br><br>Required I = (F x L³) / (3 x E x delta) = (19.62 x 0.064) / (3 x E x 0.003) = 1.2557 / (0.009 x E).<br><br><strong>Aluminum:</strong> I = 1.2557 / (0.009 x 69x10⁹) = 2.02x10⁻⁹ m⁴. h⁴ = 12 x 2.02x10⁻⁹ = 2.424x10⁻⁸. h = 0.01305 m = <strong>13.05mm</strong>. Mass = 0.01305² x 0.4 x 2700 = <strong>185g</strong>.<br><br><strong>Steel:</strong> I = 1.2557 / (0.009 x 200x10⁹) = 6.98x10⁻¹⁰ m⁴. h⁴ = 12 x 6.98x10⁻¹⁰ = 8.376x10⁻⁹. h = 0.01095 m = <strong>10.95mm</strong>. Mass = 0.01095² x 0.4 x 7850 = <strong>378g</strong>.<br><br><strong>Aluminum is roughly 2x lighter</strong> for the same stiffness, despite needing a larger cross-section. This generalizes: for stiffness-limited beams in bending, aluminum almost always wins on mass over steel because its lower density more than compensates for its lower modulus."
         }
       ]
     },
 
-    /* ── SECTION 6 ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       SECTION 6 — DFM Rules by Process
+    ══════════════════════════════════════════════════ */
     {
-      title: "DFM in Practice: Common Rules",
+      title: "DFM in Practice: Rules by Process",
       blocks: [
         {
           type: "text",
-          content: "Abstract principles are useful, but DFM is most powerful when you internalize a set of concrete rules for each process. Below are the most impactful rules for the processes you'll encounter most as an intermediate engineer."
+          content: [
+            "Abstract principles are useful, but DFM is most powerful when you have internalized a concrete set of rules for each process. The rules below are not arbitrary — each one traces directly to a physical constraint of the process. Understanding the why behind each rule lets you know when it is safe to bend it, and when it is not.",
+            "Think of these as a mental checklist you run through every time you model a feature. The goal is that DFM decisions happen in CAD, not in a shop conversation after the drawing has already been sent."
+          ]
         },
         {
           type: "steps",
           title: "DFM Rules for CNC Machining",
           items: [
             {
-              heading: "Design for standard tool sizes",
-              detail: "Inside corner radii should match standard end mill sizes (1/8\", 3/16\", 1/4\"). Odd radii require custom tooling or extra setups — both cost more."
+              heading: "Design inside corners to standard end mill radii",
+              detail: "Inside pocket corners cannot be square — every end mill has a radius. Standard sizes are 1/16\", 1/8\", 3/16\", 1/4\", 3/8\". Design your corners to match the largest end mill that fits your feature. An odd radius forces either a custom tool or an interpolated toolpath — both add cost. If you need a near-square corner, add a relief slot at the corner rather than specifying a tiny radius."
             },
             {
-              heading: "Avoid deep, narrow pockets",
-              detail: "Depth-to-width ratio > 4:1 causes tool deflection and poor surface finish. If you need depth, increase the pocket width or use a stepped approach."
+              heading: "Keep pocket depth-to-width ratio under 4:1",
+              detail: "Tool deflection increases dramatically with depth. A 6mm end mill cutting a 6mm wide pocket at 24mm depth (4:1) is already at its limit. Beyond that, expect chatter, poor surface finish, and risk of tool breakage. If you need a deep narrow feature, design it as a slot open on one side, or increase the pocket width to bring the ratio down."
             },
             {
-              heading: "Minimize setups",
-              detail: "Every time a part needs to be repositioned in the machine, it adds time and potential for error. Design features so they can be machined from as few orientations as possible."
+              heading: "Consolidate features to minimize setups",
+              detail: "Every time the machinist re-fixtures the part, setup time adds cost and introduces potential for datum shift between features. Ideally, all features on a face are machined in one setup. If features on multiple faces are needed, group them so only one re-fixture is required. Ask: could this feature be oriented differently without affecting function?"
             },
             {
-              heading: "Chamfer instead of fillet on external edges",
-              detail: "External chamfers are faster to machine and add less stress concentration than sharp edges, without requiring a ball-end mill pass."
+              heading: "Use chamfers on external edges instead of fillets",
+              detail: "A 45-degree chamfer on an external edge is a single pass with a chamfering tool. A fillet requires a ball-end mill pass with multiple depth increments to achieve a smooth radius. Unless the fillet is there for structural reasons (stress relief at a high-load feature), use a chamfer — it is faster, cheaper, and reduces stress concentrations on external edges."
+            },
+            {
+              heading: "Specify only the surface finish you actually need",
+              detail: "Surface finish requirements directly drive machining time. Ra 3.2 micrometers is standard and fast. Ra 0.8 micrometers requires extra passes. Ra 0.2 micrometers often requires grinding. Only call out tight surface finishes where there is a functional reason — sealing surfaces, bearing bores, precision sliding interfaces."
             }
           ]
         },
         {
           type: "steps",
-          title: "DFM Rules for Sheet Metal",
+          title: "DFM Rules for Laser Cut Sheet Metal",
           items: [
             {
-              heading: "Minimum bend radius = material thickness",
-              detail: "Bending tighter than the material thickness causes cracking on the outer face. For 90° bends in 1/8\" aluminum, keep your inside bend radius ≥ 1/8\"."
+              heading: "Minimum inside bend radius equals material thickness",
+              detail: "When sheet metal bends, the outer face stretches and the inner face compresses. Bending tighter than the material thickness causes cracking on the outer face. For 90-degree bends in 3mm 6061 aluminum, minimum inside bend radius is 3mm. For 5052 aluminum (more formable), you can go slightly tighter. Stainless and hard alloys require larger minimum radii."
             },
             {
-              heading: "Minimum hole-to-edge distance = 2× material thickness",
-              detail: "Holes too close to an edge or bend will distort or tear during punching or bending. Keep holes well clear of bends and edges."
+              heading: "Keep holes at least 2x material thickness from any edge or bend",
+              detail: "Holes too close to edges create thin webs that deform or tear during laser cutting or punching. Holes too close to bends distort during bending as the material flows. For 3mm material, keep all holes at least 6mm from any edge and at least 6mm from any bend line (measured to hole edge, not center)."
             },
             {
-              heading: "Use tab-and-slot for alignment",
-              detail: "Laser-cut tabs that slot into matching holes allow precise positioning before welding or riveting, eliminating the need for fixtures."
+              heading: "Add bend relief notches at intersecting bends",
+              detail: "Where two bend lines meet at a corner (common in box-form parts), add a small relief cut at the intersection point. Without it, the material tears unpredictably during bending. Relief cuts should be at least 1x material thickness wide and 1x material thickness long, positioned at the exact bend line intersection."
+            },
+            {
+              heading: "Use tab-and-slot joints for assembly alignment",
+              detail: "Laser-cut tabs that slot precisely into matching laser-cut holes eliminate the need for external fixtures during welding or riveting. The kerf of a laser cut is consistent and repeatable — you can design tabs that are a light press fit for precise self-location. This technique is widely used in production sheet metal assemblies."
             }
           ]
         },
         {
           type: "callout",
           kind: "example",
-          content: "A team redesigned their arm bracket by adding 0.125\" corner radii to all inside pockets (matching their shop's smallest end mill), removing one machining setup, and adjusting two hole locations away from a bend. Result: part cost dropped by 35% with no change to function."
+          content: "<strong>Real DFM review outcome:</strong> During a pre-release review of an arm bracket, a team found four issues: inside pocket radii were 2.3mm (no standard end mill matches this), one pocket was at a 5:1 depth-to-width ratio, two holes were 4mm from a bend line on 3mm material, and all tolerances were ±0.001 inch. After fixing each issue and relaxing tolerances to ±0.005 inch, the revised fabrication quote came back 40% lower. No functional change."
         },
         {
           type: "checklist",
-          title: "Pre-Release DFM Review",
+          title: "Pre-Release DFM Review Checklist",
           items: [
-            { type: "do", text: "All inside corner radii match standard tool sizes" },
-            { type: "do", text: "Tolerances are the loosest values that still allow function" },
-            { type: "do", text: "Drawing includes a datum scheme that matches how the part is fixtured" },
-            { type: "do", text: "Material and finish are explicitly called out" },
-            { type: "do", text: "All features are accessible from a defined set of machine setups" },
-            { type: "dont", text: "No tolerances tighter than ±0.001\" without a specific functional reason" },
-            { type: "dont", text: "No deep narrow pockets (depth > 4× width)" }
+            { type: "do", text: "All inside corner radii match standard end mill sizes" },
+            { type: "do", text: "Pocket depth-to-width ratio is 4:1 or less on all pockets" },
+            { type: "do", text: "Part can be machined in the minimum number of setups" },
+            { type: "do", text: "Tolerances are the loosest values that still allow the assembly to function" },
+            { type: "do", text: "Drawing has a datum scheme that matches how the part will be fixtured" },
+            { type: "do", text: "Material, temper/alloy, and surface finish are explicitly called out" },
+            { type: "do", text: "Sheet metal holes are at least 2x material thickness from all edges and bend lines" },
+            { type: "do", text: "Bend radii are at least equal to material thickness for all bends" },
+            { type: "dont", text: "No tolerances tighter than ±0.025mm without a documented functional reason" },
+            { type: "dont", text: "No deep narrow pockets with depth greater than 4x width" },
+            { type: "dont", text: "No surface finish callouts tighter than Ra 1.6 micrometers without a specific sealing or wear reason" }
           ]
+        },
+        {
+          type: "challenge",
+          difficulty: "advanced",
+          title: "Full DFM Review",
+          prompt: "You have been handed the following part description to review before it goes to the machine shop. Identify every DFM problem, explain the specific manufacturing issue each one causes, and propose a fix for each.",
+          context: "The part is a 6061-T6 aluminum motor mount plate, 200mm x 150mm x 15mm thick, CNC machined. Features: four M5 mounting holes positioned to ±0.002 inch tolerance; two 8mm wide x 40mm deep lightening pockets on the underside; all inside pocket corners have 1mm radius; three 3mm diameter ventilation holes each 2mm from the nearest edge; a 60mm diameter through-bore for the motor shaft toleranced to ±0.0005 inch; a 5mm wide x 25mm deep slot open on one end; overall surface finish callout of Ra 0.4 micrometers on all surfaces.",
+          tasks: [
+            "List every DFM problem you can find. Aim for at least five.",
+            "For each problem, explain what specific manufacturing difficulty it causes.",
+            "Propose a specific fix for each issue."
+          ],
+          hint: "Go feature by feature. Check each one against the rules covered in this module: pocket depth-to-width ratio, corner radii vs. standard tool sizes, hole-to-edge distance, tolerance vs. process capability, and surface finish vs. functional need.",
+          answer: "<strong>Problems found:</strong><br><br><strong>1. Lightening pocket aspect ratio:</strong> 8mm wide x 40mm deep = 5:1. Causes tool deflection, chatter, poor finish, and risk of tool breakage. Fix: widen pockets to at least 12mm (ratio drops to 3.3:1) or reduce depth to 32mm (4:1 at 8mm wide).<br><br><strong>2. 1mm inside corner radius:</strong> Requires a 2mm diameter end mill — fragile, slow, and expensive. Fix: increase to 3/16 inch (4.76mm) — the smallest practical end mill size that holds up reliably.<br><br><strong>3. 3mm holes 2mm from edge:</strong> Minimum edge distance should be 2x hole diameter = 6mm. At 2mm, the thin web will deform or breakthrough during drilling. Fix: move holes to at least 6mm from any edge.<br><br><strong>4. M5 holes to ±0.002 inch (0.05mm):</strong> Achievable but tight — requires careful fixturing and 100% inspection. If these are clearance holes for bolts into a standard motor pattern, ±0.1mm is almost certainly sufficient. Fix: confirm the functional requirement and relax to ±0.1mm unless there is a specific reason not to.<br><br><strong>5. 60mm bore to ±0.0005 inch (0.013mm):</strong> This is a precision grinding tolerance. Standard CNC boring holds ±0.025mm. Achieving ±0.013mm requires a dedicated grinding or honing operation, significantly increasing cost. Fix: if this bore accepts a standard bearing press fit, ±0.013mm may be justified. If it is a clearance fit for a motor shaft, ±0.05mm is sufficient and far cheaper.<br><br><strong>6. Ra 0.4 micrometers on all surfaces:</strong> Requires careful finishing passes on every surface — unnecessary on structural faces. Fix: apply Ra 0.4 only to the motor bore and any sealing faces. Specify Ra 3.2 for all other surfaces."
         }
       ]
     }
 
   ] // end sections
 };
-
 
 // Hand off to the renderer
 document.addEventListener('DOMContentLoaded', () => renderModulePage(MODULE_CONTENT));
