@@ -20,32 +20,226 @@ const MODULE_CONTENT = {
   sections: [
 
     /* ── SECTION 1 ──────────────────────────────────── */
-    {
-      title: "What is Design for Manufacturing?",
-      blocks: [
-        {
-          type: "text",
-          content: [
-            "Design for Manufacturing (DFM) is the practice of designing parts with the manufacturing process in mind from the very beginning — not as an afterthought. It's the difference between a part that looks correct in CAD and a part that can actually be made at reasonable cost, on schedule, and to the quality you need.",
-            "Most intermediate CAD users can model a geometry. Fewer can model a geometry that a machinist, sheet metal shop, or 3D printer can reproduce accurately and efficiently. That gap is what this module is about."
-          ]
-        },
-        {
-          type: "callout",
-          kind: "note",
-          content: "DFM isn't about limiting your designs — it's about understanding the rules of each manufacturing process well enough to work creatively within them."
-        },
-        {
-          type: "text",
-          content: "The three core questions of DFM are: <strong>Can it be made?</strong> (physical feasibility) <strong>Can it be measured?</strong> (inspection and tolerancing) and <strong>Can it be made consistently?</strong> (process capability). If you can answer yes to all three, your design is manufacturing-ready."
-        },
-        {
-          type: "image",
-          caption: "DFM Decision Flow",
-          hint: "Diagram showing the feedback loop between design intent, process selection, and design revision"
-        }
-      ]
-    },
+     {
+        title: "Why DFM Matters (Mindset Shift)",
+        blocks: [
+
+          {
+            type: "text",
+            content: [
+              "Most CAD users learn how to create geometry. Far fewer learn how to create geometry that can actually be manufactured. This gap is where real-world engineering problems begin.",
+              "Design for Manufacturing (DFM) is the practice of thinking about how a part will be made while you are designing it — not after you're done. It connects your CAD decisions directly to cost, time, and part quality."
+            ]
+          },
+
+          {
+            type: "callout",
+            kind: "warning",
+            content: "If you design first and think about manufacturing later, you will almost always need to redesign the part — usually when time is limited."
+          },
+
+          {
+            type: "text",
+            content: [
+              "CAD software gives you a powerful but misleading ability: you can design almost anything. But manufacturing is constrained by real tools, real materials, and real costs.",
+              "Good engineering is not about designing the most complex part — it's about designing the simplest part that achieves the required function."
+            ]
+          },
+
+          {
+            type: "image",
+            caption: "Over-Designed vs Manufacturing-Efficient Part",
+            hint: "Left: complex part with many small features, deep pockets, and tight corners. Right: simplified version with fewer features and larger radii"
+          },
+
+          {
+            type: "text",
+            content: [
+              "Even if two parts perform the exact same function, their cost can vary dramatically depending on how they are designed. The difference comes from how difficult they are to manufacture.",
+              "To understand DFM, you need to understand where cost actually comes from."
+            ]
+          },
+
+          {
+            type: "keyterms",
+            title: "Primary Manufacturing Cost Drivers",
+            items: [
+              {
+                term: "Setup Time",
+                definition: "Time required to prepare the machine, fixture the part, and align everything. Each setup adds significant cost."
+              },
+              {
+                term: "Machining Time",
+                definition: "Time spent actively cutting material. More features and deeper cuts increase this dramatically."
+              },
+              {
+                term: "Tool Changes",
+                definition: "Switching between tools during machining. More features usually require more tools."
+              },
+              {
+                term: "Tolerance Requirements",
+                definition: "Tighter tolerances require slower machining, better tools, and more inspection — increasing cost."
+              }
+            ]
+          },
+
+          {
+            type: "callout",
+            kind: "note",
+            content: "Material cost is often NOT the main driver. Machining time and setup usually dominate."
+          },
+
+          {
+            type: "text",
+            content: [
+              "Every feature you add to a part has a cost. A hole requires drilling. A pocket requires milling. A fillet may require a different tool. These operations add up quickly.",
+              "This leads to one of the most important ideas in DFM: every feature must justify its existence."
+            ]
+          },
+
+          {
+            type: "steps",
+            title: "How Features Translate to Cost",
+            items: [
+              {
+                heading: "More features → more toolpaths",
+                detail: "Each feature requires the machine to perform additional operations, increasing machining time."
+              },
+              {
+                heading: "More setups → more time",
+                detail: "If a part must be repositioned to access different features, setup time increases significantly."
+              },
+              {
+                heading: "Complex geometry → slower machining",
+                detail: "Tight corners, deep pockets, and small details require slower, more careful cutting."
+              },
+              {
+                heading: "Tighter tolerances → higher precision work",
+                detail: "The machine must move more slowly and parts must be inspected more carefully."
+              }
+            ]
+          },
+
+          {
+            type: "image",
+            caption: "Deep Pocket vs Open Geometry",
+            hint: "Comparison showing a deep narrow pocket requiring long tool vs a wide shallow pocket that is easy to machine"
+          },
+
+          {
+            type: "text",
+            content: [
+              "Manufacturing is also limited by the physical tools used to make parts. These tools have shape and size constraints that directly affect what geometry is possible.",
+              "For example, most machining is done with rotating tools that are cylindrical. This creates natural limitations in the shapes they can produce."
+            ]
+          },
+
+          {
+            type: "keyterms",
+            title: "Tool Constraints",
+            items: [
+              {
+                term: "Tool Diameter",
+                definition: "Limits how small internal features can be. Smaller tools are weaker and slower."
+              },
+              {
+                term: "Tool Length",
+                definition: "Longer tools can reach deeper features but are less stable and more prone to vibration."
+              },
+              {
+                term: "Tool Shape",
+                definition: "Most tools are round, meaning internal corners will always have a radius unless special processes are used."
+              }
+            ]
+          },
+
+          {
+            type: "callout",
+            kind: "warning",
+            content: "Perfectly sharp internal corners are not possible with standard machining tools."
+          },
+
+          {
+            type: "image",
+            caption: "Internal Corner Limitation",
+            hint: "Diagram showing a round cutting tool leaving a filleted internal corner instead of a sharp 90° edge"
+          },
+
+          {
+            type: "text",
+            content: [
+              "At this point, the way you evaluate your designs should start to change. Instead of asking 'Can I model this?', you should be asking a different set of questions."
+            ]
+          },
+
+          {
+            type: "steps",
+            title: "The DFM Mindset",
+            items: [
+              {
+                heading: "Can a tool reach this feature?",
+                detail: "If a tool cannot physically access the geometry, it cannot be manufactured without special processes."
+              },
+              {
+                heading: "How many setups are required?",
+                detail: "Each additional setup increases cost and introduces potential alignment errors."
+              },
+              {
+                heading: "Does this feature improve function?",
+                detail: "If not, it is likely unnecessary and should be removed."
+              }
+            ]
+          },
+
+          {
+            type: "callout",
+            kind: "tip",
+            content: "A strong design is one where every feature has a clear purpose tied to function."
+          },
+
+          {
+            type: "text",
+            content: [
+              "Many beginner designs include extra features that look good in CAD but provide no functional benefit. These features increase cost, machining time, and complexity without improving performance.",
+              "Learning to remove unnecessary features is just as important as learning to create them."
+            ]
+          },
+
+          {
+            type: "image",
+            caption: "Unnecessary vs Functional Features",
+            hint: "Highlighted CAD model showing decorative fillets and extra holes vs a cleaned-up version with only functional elements"
+          },
+
+          {
+            type: "text",
+            content: [
+              "Ultimately, DFM is about efficiency. The best designs achieve their goal with the least complexity, the fewest operations, and the lowest cost.",
+              "This doesn't mean oversimplifying — it means making intentional decisions about every aspect of your design."
+            ]
+          },
+
+          {
+            type: "callout",
+            kind: "example",
+            content: "A part with 10 features is not inherently better than a part with 4. If both perform the same function, the simpler part will almost always be faster, cheaper, and more reliable to produce."
+          },
+
+          {
+            type: "checklist",
+            title: "Section 1 Takeaways",
+            items: [
+              { type: "do", text: "Think about manufacturing while designing, not after" },
+              { type: "do", text: "Minimize unnecessary features" },
+              { type: "do", text: "Consider tool limitations and access" },
+              { type: "do", text: "Reduce setups whenever possible" },
+              { type: "dont", text: "Don't assume CAD geometry can always be manufactured" },
+              { type: "dont", text: "Don't add features without a functional reason" }
+            ]
+          }
+
+        ]
+      },
 
     /* ── SECTION 2 ──────────────────────────────────── */
     {
