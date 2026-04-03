@@ -75,7 +75,7 @@ const MODULE_CONTENT = {
           items: [
             {
               term: "3-Axis Vertical Mill",
-              definition: "The workhorse of most job shops. A rectangular table moves in X and Y, and the spindle moves in Z (up and down). The machine can reach any point on the top face of the part and any vertical side wall — but it cannot tilt the tool relative to the part. All features must be accessible from a fixed orientation. A typical machine like a Haas VF-2 has roughly 1000mm x 500mm of table travel, spindle speeds of 8,000–15,000 RPM, and a tool magazine holding 20–30 tools."
+              definition: "The workhorse of most job shops. A rectangular table moves in X and Y, and the spindle moves in Z (up and down). The machine can reach any point on the top face of the part and any vertical side wall — but it cannot tilt the tool relative to the part. All features must be accessible from a fixed orientation. A typical machine like a Haas VF-2 has roughly 1000mm x 500mm of table travel, spindle speeds of 8,000-15,000 RPM, and a tool magazine holding 20-30 tools."
             },
             {
               term: "5-Axis Mill",
@@ -87,14 +87,14 @@ const MODULE_CONTENT = {
             },
             {
               term: "Simultaneous 5-Axis",
-              definition: "All five axes move at the same time, allowing the tool to follow complex curved surfaces while continuously adjusting its orientation. Used for turbine blades, impellers, and highly contoured aerospace parts. Requires specialized programming and significantly more machine time. Very rarely needed for typical engineering parts."
+              definition: "All five axes move at the same time, allowing the tool to follow complex curved surfaces while continuously adjusting its orientation. Used in applications like turbine blades, impellers, and highly contoured aerospace parts. Requires specialized programming and significantly more machine time. Very rarely needed for typical engineering parts."
             }
           ]
         },
         {
           type: "text",
           content: [
-            "Modern CNC mills have several capabilities worth knowing as a designer. Automatic tool changers let the machine swap between 20–50 tools without stopping — meaning complex parts with many different features can be cut in a single run. Touch probes (like the Renishaw OMP60) measure the exact position of the workpiece in the machine coordinate system at the start of each job, eliminating the human error of manual setup. Automatic tool setting systems measure each tool's exact length and diameter before cutting, compensating for any deviation from nominal.",
+            "Modern CNC mills have several capabilities worth knowing as a designer. Automatic tool changers let the machine swap between 20-50 tools without stopping — meaning complex parts with many different features can be cut in a single run. Touch probes (like the Renishaw OMP60) measure the exact position of the workpiece in the machine coordinate system at the start of each job, eliminating the human error of manual setup. Automatic tool setting systems measure each tool's exact length and diameter before cutting, compensating for any deviation from nominal.",
             "These capabilities matter for DFM because they inform what is genuinely hard and what just seems hard. Tool changes are essentially free — using 12 different tools in one program adds almost no cost. What adds cost is anything that requires the machine to stop, the operator to intervene, or the part to be repositioned. Keep that distinction in mind as you design."
           ]
         },
@@ -106,7 +106,7 @@ const MODULE_CONTENT = {
         {
           type: "callout",
           kind: "tip",
-          content: "When you are unsure whether your part needs 5-axis machining, ask this: can all the features on your part be accessed by a tool pointing straight down (or from the side in a second setup)? If yes, it is a 3-axis part. If a feature requires the tool to approach at an angle that a vertical spindle cannot achieve, you need 5-axis or a creative fixturing solution."
+          content: "When you are unsure whether your part needs 5-axis machining, ask this: can all the features on your part be accessed by a tool pointing straight down (or from the side in a second setup)? If yes, it is a 3-axis part. If a feature requires the tool to approach at an angle that a vertical spindle cannot achieve, you may need 5-axis or a creative fixturing solution."
         },
         {
           type: "challenge",
